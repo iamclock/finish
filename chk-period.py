@@ -13,29 +13,34 @@ def GCD(x, y):
 	return x
 
 
-# def Main():
+def main():
 
-x = a = eval(input("a = "))
-c = eval(input("c = "))
-m = eval(input("m = "))
-
-
-# print("a = " + str(a) + "\nx = " + str(x) + "\nc = " + str(c) + "\nm = " + str(m))
-
-print("GCD(c, m) = " + str(GCD(a, m)))
-print("b = a-1 = " + str(a-1))
-print("")
+	x = a = eval(input("a = "))
+	c = eval(input("c = "))
+	m = eval(input("m = "))
 
 
+	# print("a = " + str(a) + "\nx = " + str(x) + "\nc = " + str(c) + "\nm = " + str(m))
 
-step = 0
-print(str(step) + ". " + str(x))
-x = (a*x + c) % m
-while x != a:
-	step = step+1
+	print("GCD(c, m) = " + str(GCD(a, m)))
+	print("b = a-1 = " + str(a-1))
+	print("")
+
+
+
+	step = 0
 	print(str(step) + ". " + str(x))
 	x = (a*x + c) % m
-print("period = " + str(step+1))
+	while x != a:
+		step = step+1
+		print(str(step) + ". " + str(x))
+		x = (a*x + c) % m
+	print("period = " + str(step+1))
+
+
+
+
+print(GCD(4, 7))
 
 
 
