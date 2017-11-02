@@ -7,3 +7,5 @@ allbn.o
 libl0.l
 ltc
 translator.py
+src/lfsr
+src/lfsr_*
