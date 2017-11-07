@@ -3,6 +3,7 @@ main(/)
 	
 **
 
+*** алгоритм подсчёта веса с булевых функций быстрее побитового сдвига?
 
 
 test_lfsr(/)
@@ -14,34 +15,104 @@ test_lfsr(/)
 	28000005h=L2.0 *** 00101000000000000000000000000101 or x^32+x^30+x^3+x^5+1
 	OL2.2=L2.3=L2.1
 	
-	Oi ffffh*32-1=w
+	Oi ffffh*32-1 63=w
 	P1
-		?(i>w)2 *lfsr(L1, L2/L1) Di *** ?=1
+		?(i>w)2 *doLFSR(L1, L2/L1) Di
+		*printShiftReg(L1/) /'\n'>C
+		?=1
 	P2
-	*Hprintf(L1.0/) *Hprintf(L1.1/) /':'>C
-	*Hprintf(L1.2/) *Hprintf(L1.3/) /'\n'>C
+**
+
+	/'********************************\n'>C
+	/'L1 = '>C *HprintfBN(L1/) /'\n'>C
+	/'L2 = '>C *HprintfBN(L2/) /'\n'>C
+	/'L3 = '>C *HprintfBN(L3/) /'\n'>C
+	/'j = '>C *printf(j/) /'\n'>C
+	/'********************************\n'>C
+
+printShiftReg(L1/)
+	Q1-1=i Q1/2=w /'0x'>C
+	?(Q1>1)1 *** для случая 32ух бит для менее доделать
+	L1.0>16=x *Hprintf2(x/)
+	/':'>C /'0x'>C
+	L1.0&ffffh=x *Hprintf(L1.0/)
+	P1
+		?(i<w)2 ?(i>Q1)3 *Hprintf2(L1i/) Yi ?=1
+	P2
+		Ow /':'>C /'0x'>C ?=1
+	P3
 **
 
 
-*** L1 - shift register L1.0 - low, L1.[Q1-1] - high
-*** L2 - tap mask L2.0 - low, L2.[Q2-1] - high
-lfsr(L1, L2/L1)
-	@+L3(100)
+lfsr(/)
+	*** lfsr с проверками
+**
+
+
+weight(a/k)
+	Ok
+	P91
+		?(a<1)92 a&1+k=k a>1=a ?=91
+	P92
+**
+
+
+*** L1 - shift register L1.0 - low, ..., L1.[Q1-1] - high
+*** L2 - tap mask L2.0 - low, ..., L2.[Q2-1] - high
+doLFSR(L1, L2/L1)
+	Q1+5=k
+	
+	*** ************ CHECK THIS ***********
+	*** /'S3 = '>C *printf(k/) /'\n'>C
+	@+L3(k)
+	*** S3=k /'S3 = '>C *printf(k/) /'\n'>C
+	*** T=X
+	*** X=k
+	*** /'k = '>C *printf(k/) /'\n'>C
+	*** ***********************************
+	
 	@+F4(100)
-	Q1=Q3
-	L1&L2=L3 Q3/2-1=w=j Oi
-	P1
-		?(i>w)2 L3i^L3j=L3i Di Dj ?=1
-	P2
-	w+1=Q3
-	L3.0<32>32^L3.1>32=z
-	z&ffffh^z>16=x
-	x&ffh^x>8=c
-	c&fh^c>4=v
-	v&3^v>2=b
-	b&1^b>1=n
-	L1<1|L1>63<1=L1
-	L1.0|n=L1.0
+	?(Q1<1)101
+	Q1=q/2=c
+	?(Q1>1)93
+	*** случай для лфср <33 бит
+	*** посчитать количество бит в регистре и уйти в 92
+	*weight(L1.0/k) ?(k>0)92 ?=101
+	
+	P93 *** случай для лфср >32 бит
+		?(Q3<2)92
+		q/2=q=Q3=j-1=w
+		/'Q3 = '>C *printf(Q3/) /'\n'>C
+		Oi
+	
+		P91
+			?(i>w)93
+			*** /'i = '>C *printf(i/) /'\n'>C
+			*** /'j = '>C *printf(j/) /'\n'>C
+			L2i=f L2j=g ?(Q3=c)94 ffffffffh=f=g
+			P94
+				L1i&f=l L1j&g^l=L3i Di Dj ?=91
+	
+	P92
+		*** /'Q3 = '>C *printf(Q3/) /'\n'>C
+		*** /'L3 = '>C *HprintfBN(L3/) /'\n'>C
+		*** *OxHprintf2(L3.0/) /'\n'>C
+		*** *OxHprintf2(L3.1/) /'\n'>C
+		*** *printShiftReg(L3/) /'\n'>C
+		*** w+1=Q3
+		
+		L3.0>16=l L3.0&ffffh^l=z
+		z>8=l z&ffh^l=x
+		x>4=l x&fh^l=c
+		c>2=l c&3^l=v
+		v>1=l v&1^l=b
+	Q1-1=i-1=j
+	P99
+		?(j>Q1)100
+		L1j>63=v L1i<1|v=L1i Yi Yj ?=99
+	P100
+		L1.0<1|b=L1.0
+	P101
 **
 
 
@@ -65,7 +136,7 @@ test_lfsr_old(/)
 *** с учётом степени в L1.0, L2.0
 *** L1 - shift register L1.0 - low, L1.[Q1-1] - high
 *** L2 - tap mask L2.0 - low, L2.[Q2-1] - high
-lfsr_old(L1, L2/L1)
+doLFSR_old(L1, L2/L1)
 	@+L3(100)
 	@+F4(100)
 	Q1=Q3 Oi Q3-1=w
