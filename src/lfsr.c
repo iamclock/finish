@@ -38,12 +38,27 @@ int main(){
 		0xffffffffffffffffull,
 		0xffffffffffffffffull,
 	};
+	uint64_t lfsr_begin[2] = {
+		0xffffffffffffffffull,
+		0xffffffffffffffffull,
+	};
+	uint64_t index = 0;
+	uint64_t count = 0;
 	volatile unsigned i;
-
-	for(i = 0; i < 0xffff * 32; ++i){
+	do_lfsr(lfsr_data);
+// 	for(i = 0; i < 0xffff * 32; ++i){
+	while( (lfsr_data[0] != lfsr_begin[0]) || (lfsr_data[1] != lfsr_begin[1]) ){
 		//printf("%d ", i);
+// 		printf("%d ", index);
+		if(index == 0xffffffffffffffffull){
+			++count;
+			printf("%lu ", count);
+		}
 		do_lfsr(lfsr_data);
+		++index;
 // 		printf("%016"PRIx64":%016"PRIx64"\n", lfsr_data[1], lfsr_data[0]);
 	}
+	printf("index: %lu\n", index);
+	printf("count: %lu\n", count);
 	printf("%016"PRIx64":%016"PRIx64"\n", lfsr_data[1], lfsr_data[0]);
 }

@@ -3,6 +3,9 @@ build_lfsrl:
 	./ltc lfsr_.l
 build_lfsrc:
 	gcc -O0 -o lfsr lfsr.c
+build_lfsrc_dbg:
+	gcc -ggdb -g3 -O0 -o lfsr lfsr.c
+
 
 lfsrl: lfsrl
 	rm lfsr_.l lfsr_.s
