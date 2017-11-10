@@ -15,12 +15,13 @@ test_lfsr(/)
 	28000005h=L2.2 *** 00101000000000000000000000000101 or x^32+x^30+x^3+x^5+1
 	OL2.3=L2.1=L2.0
 	
-	Oi ffffh*32-1=w
+	Oi ffffh*32-1 65=w
 	P1
-		?(i>w)2 *doLFSR(L1, L2/L1) Di
+		?(i>w)2 *doLFSR(L1, L2/L1, b) Di
+		*printf(b/)
 		*** *printShiftReg(L1/) /'\n'>C
 		?=1
-	P2 *printShiftReg(L1/) /'\n'>C
+	P2 /'\n'>C *printShiftReg(L1/) /'\n'>C
 **
 
 	/'********************************\n'>C
@@ -59,7 +60,7 @@ weight(a/k)
 
 *** L1 - shift register L1.0 - low, ..., L1.[Q1-1] - high
 *** L2 - tap mask L2.0 - low, ..., L2.[Q2-1] - high
-doLFSR(L1, L2/L1)
+doLFSR(L1, L2/L1, b)
 	Q1+5=k
 	@+L3(k)
 	@+F4(100)
