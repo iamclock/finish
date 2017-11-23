@@ -9,3 +9,5 @@ ltc
 translator.py
 src/lfsr
 src/lfsr_*
+src/crypt.txt
+src/decrypt.txt

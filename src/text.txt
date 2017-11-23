@@ -1,0 +1,313 @@
+An approximately 20-person team at Ion Storm developed Deus Ex, a 
+cyberpunk-themed action-role playing video game, over the course of 34 months, 
+culminating in a June 2000 release. Team director and producer Warren Spector 
+began to plan the game in 1993 after releasing Ultima Underworld II with Origin 
+Systems and attempted the game both there and at Looking Glass Technologies 
+before going into production with Ion Storm. Official preproduction began around 
+August 1997, lasted for six months, and was followed by 28 months of production. 
+Spector saw their work as expanding on the precedent set by Origin, Looking 
+Glass, and Valve Corporation.
+
+In preproduction, six people from Looking Glass's Austin studios focused on the 
+setting ahead of the game mechanics, and chose a story centred around prominent 
+conspiracy theories as an expression of the "millennial madness" in The X-Files 
+and Men in Black. Spector felt that the development process's highlights were 
+the "high-level vision" and length of preproduction, flexibility within the 
+project, testable "proto-missions", and Unreal Engine license. Their pitfalls 
+included the team structure, unrealistic goals, underestimating risks with 
+artificial intelligence, their handling of proto-missions, and weakened morale 
+from Daikatana's bad press. The game was published by Eidos Interactive and 
+released on June 23, 2000 for Windows 95 and later versions, whereupon it earned 
+over 30 "best of" awards in 2001.
+
+After Warren Spector released Ultima Underworld II with Origin Systems in 
+January 1993, he began to plan Troubleshooter, the game that would become Deus 
+Ex.[1] Noting his wife's fascination with The X-Files, he connected the "real 
+world, millennial weirdness, [and] conspiracy stuff" topics on his mind and 
+decided to make a game about it that would appeal to a wider audience.[2] He 
+also considered cyberpunk influences that came from around 1978 when he was 
+participating in a themed Dungeons & Dragons campaign created and led by Bruce 
+Sterling, who had adapted that campaign based on the choice Spector and the 
+other players made.[3] Troubleshooter, in contrast to the other games he had 
+been making at Origin, would have been a "real-world role-playing game", relying 
+more on player choices and assuring that every player could reach the end of the 
+game but in the manner they choose.[3]
+
+In his 1994 proposal to Origin, he described the concept as "Underworld-style 
+first-person action" in a real world setting with "big-budget, nonstop action" 
+starring an ex-cop "security specialist".[4] He described the project as "high" 
+risk for its "technological unknowns" as "probably the toughest project on his 
+wish list".[4] It failed to get to production. He later left Origin for Looking 
+Glass Technologies near the time that they were producing Thief: The Dark 
+Project,[3] but kept the idea in mind. For Thief, he tried to suggest buffing 
+the character more so that the player could opt to fight through levels instead 
+of sneaking, the original intent of the game, but the team didn't take to these 
+ideas.[3] He continued to change his character and game system plans for 
+Troubleshooter, though the game he then called Junction Point did not reach 
+production at Looking Glass.[1] Spector wrote that the timing was not yet ripe 
+because the business teams were not interested, the technology was not yet 
+feasible, he did not have an interested team or the resources to make one, and 
+that publishers did not want a "first-person, cross-genre game".[4][a] Spector, 
+himself, was also tired of unrealistic fantasy and alien settings.[4] Frustrated 
+at Looking Glass, Spector sought employment elsewhere and was nearly about to 
+sign a contract with Electronic Arts, when John Romero of Ion Storm approached 
+him.[3] When Romero offered him a chance to make his "dream game" without any 
+restrictions, Spector was immediately on board.[5]
+
+Preproduction began around August 1997[6] and lasted about six months. The 
+six-person team[1] came from Looking Glass's Austin studios.[7] Spector, the 
+team's director and producer, saw their work as improving upon the foundation 
+provided by Origin, Looking Glass, and Valve Corporation by doing what those 
+companies did not.[6] The game's working title was Shooter: Majestic 
+Revelations, with a scheduled release of Christmas 1998.[8] The working title 
+was meant to be ironic because they did not want the game to be solely a 
+first-person shooter.[4] They worked on the setting ahead of the game mechanics, 
+and decided on a conspiracy-style story that referenced existing conspiracy 
+theories such as Area 51, CIA drug trafficking, the John F. Kennedy 
+assassination, the Majestic 12, and a Masonic underground bunker beneath Denver 
+International Airport. Spector said their research helped them understand how 
+conspiracy theorists think.[1] The team was also able to look to the real world 
+in 1997 to find the rise of stories about terrorists and mechanically-augmented 
+soldiers that they were able to build upon.[3] They also used this time to work 
+out the backstory for constancy. The team designed over 200 characters without 
+associated in-game roles, which was both helpful when designing missions and 
+unhelpful as they attempted to reduce their scope.[1] In the third quarter of 
+1997, Spector wrote a "manifesto" on his ideal game and the "rules of 
+role-playing" that was later published in the February 1999 Game Developer 
+magazine.[1] His principles included "problems, not puzzles", "no forced 
+failure", "players do; NPCs watch", and "areas with multiple entrance and exit 
+points".[4] Reflecting, Spector felt that Deus Ex accomplished the intent of his 
+manifesto.[1]
+
+The Shooter design document set the player as an augmented agent working against 
+an elite cabal in the "dangerous and chaotic" 2050s.[4] Its subtitle was 
+"roleplaying in a world of secrets, lies, and conspiracies".[4] It was written 
+to be similar in concept to Half-Life, Fallout, Thief: The Dark Project, and 
+GoldenEye 007, and to mix elements of the films Colossus: The Forbin Project, 
+The Manchurian Candidate, and Robocop in a world inspired by The X-Files and Men 
+in Black—examples of "the millennial madness that's gripping the world ... and a 
+general fascination with conspiracy theories and the desire to play with 
+high-tech espionage toys".[4]
+
+The preproduction team also tweaked the game systems. They chose a skill system 
+that used nanotechnology augmentation, unique to the player character, as 
+"special powers" instead of "die-rolls" or skills that required granular 
+management.[9] They also built a conversation structure based on console 
+role-playing game setups, and drafted the augmentation upgrade, inventory, and 
+skill screens. They also designed an in-game text editor for taking notes, and 
+"reward systems" for skill points, reduced weapon and tool cooldowns, and 
+augmentation upgrades. Preproduction had generated 300 pages of documentation by 
+March 1998. The document grew to 500 pages with "radically different" content by 
+their April 1999 Alpha 1 deadline.[10] Of Spector's original design document, 
+the marketing section was the only part left unedited.[8]
+Production
+
+In early 1998, after six months of preproduction, the Deus Ex project grew to a 
+20-person team and entered a 28-month production phase.[6] Spector hired new 
+staff in their Austin studio and was also assigned a Dallas-based art team.[10] 
+The development team consisted of three programmers, six designers, seven 
+artists, a writer, an associate producer, a tech,[clarification needed] plus two 
+writers and four testers as contractors.[6] Chris Norden was the lead programmer 
+and assistant director, Harvey Smith the lead designer, Jay Lee the lead artist, 
+Sheldon Pacotti the lead writer, and Spector producer and director.
+
+The team had many disagreements,[5] and Spector's original staff setup crumbled. 
+When two experienced designers vied for the lead designer position, Spector 
+chose both and made two design teams. He initially thought their competition 
+would be easily managed and fruitful, but neither team felt second to the 
+other[b] and Spector had to merge the teams and choose a single designer. He 
+felt that the matrix management structure under which the Dallas art team worked 
+for the project but were not the project's staff hurt the game's progress. Some 
+of the artists were not interested in Deus Ex, and Spector wrote that "the art 
+department drifted a bit".[7] He said that the matrix management structure 
+created tension and problems, and was generally against the idea due to how it 
+worked at his previous studios Origin and Looking Glass. Though his stance won 
+out and the project received dedicated artists, Spector lamented that the game 
+could have been improved for not having matrix management in the first place. He 
+wrote that he learned about the importance of team member personal investment in 
+the game, the preemptive benefits of addressing personnel concerns as they 
+arise, and the usefulness of a chain of command even when consensus works.[7]
+
+Spector described the team as interested in multiple genres of gaming, 
+consisting of both maximalists who wanted to "do everything" and minimalists who 
+wanted to do few things well.[10] Close friends who understood the team's 
+intents were invited to test the game and give feedback. The wide range of input 
+led to debates in the office and changes in the game.[10] In his postmortem, 
+Spector concluded that the team was "unrealistic, blinded by promises of 
+complete creative freedom" and by "assurances" of budget, marketing, and no time 
+restraints, which he called "seductive traps".[11] By mid-1998, the game's title 
+had become Deus Ex, from the Latin literary device deus ex machina ("god from 
+the machine") whereby an impossible plot is resolved by an unpredictable 
+intervention.[12] Spector acknowledged its grammatical faults as a title and 
+added that he liked it because of the in-game struggle for power, the reference 
+to the medium's own plot difficulties, the reference to the game inside a 
+computer machine, and the "self-referential" acceptance of trying one's best to 
+resolve affairs.[12] The game was published by Eidos Interactive and released on 
+June 23, 2000 for Windows 95 and later versions. They also planned third-party 
+ports for Mac OS 9 and Linux.[6]
+
+Spector felt that the development process's highlights were the "high-level 
+vision" and length of preproduction, flexibility within the project, testable 
+"proto-missions", and Unreal Engine license.[13] Their pitfalls included the 
+team structure, unrealistic goals, underestimating risks with artificial 
+intelligence, their handling of proto-missions, and weakened morale from bad 
+press.[14] He referred to that period of Ion Storm as "Sturm und Drang" with its 
+degree of hype and as a target of vitriol following Daikatana's "suck it down" 
+trash talk marketing and what Spector saw as negative press in 1998 and 
+1999.[15] He said that his Austin team had "frequent" slumps in morale from 
+taking the company's coverage personally and seeing their private emails posted 
+online.[15] Spector wrote that "too many talented people" interested in Deus Ex 
+did not join because they refused to work at Ion Storm.[15] He added that the 
+company's notoriety did contribute to their press coverage from major outlets, 
+more so than during his time at Origin or Looking Glass. Eventually, the Deus Ex 
+Austin team developed a "'we'll show them' mentality" to distinguish their work 
+and reputation from the Dallas-based Daikatana and Anachronox Ion Storm 
+releases, which Spector considered toxic.[15][c]
+World and character design
+
+The original 1997 design document for the game privileges character development 
+over all other parts, including experimental sequences and technology demos.[8] 
+They wanted players to consider "who they wanted to be" in the game, and for 
+that to be connected to how they behaved in the game.[4] In this way, the game 
+world was "deeply simulated": real and common sense enough to be believed that 
+the player may think about solving the game problems in creative and emergent 
+ways without seeing distinct puzzles.[4] The developers also wanted "choice" 
+with "consequence"—what Spector called the team's "two most frequently uttered 
+words".[4] Their simulation was not able to maintain that level of openness, and 
+the team had to force "skill", "action", and "character interaction" paths 
+through the levels.[16] Spector compared this technique to the practices of 
+Ultima's developers, though he felt his team did it "more consciously and ... 
+effectively".[16] Spector later credited Konami's 1995 role-playing video game 
+Suikoden as an inspiration, stating that the limited choices in Suikoden 
+inspired him to expand on the idea with more meaningful choices in Deux Ex.[17]
+
+The game changed greatly over the course of production, but parts that remained 
+consistent include the augmented counterterrorist protagonist JC Denton. The 
+anti-terrorism organization UNATCO was originally TLC, the Terrorist Limitation 
+Coalition. Ally Tracer Tong was more of a "mercenary" than a "kindly anarchist", 
+while enemies like UNATCO's Joseph Manderley went from "ruthless bastard" to 
+"stuffy bureaucrat" and Majestic 12's Bob Page and assassin Anna Navarre played 
+more of a background role.[8] Many of the original character ideas were reshaped 
+to fit the final game design. The Majestic 12 organization originally intended 
+to initiate a Mexican invasion of Texas and then suffocate the presidential 
+cabinet by killing their oxygen supply. When this failed, their artificial 
+intelligence kills the organization and retreats to outer space with nuclear 
+weapons. Some of the plot and characters were brought to the final version, 
+except that Majestic 12 is clandestine and focused on controlling the Internet. 
+Though Spector originally pictured the game as akin to The X-Files, lead writer 
+Sheldon Pacotti felt it ended up more like James Bond.[8] Spector himself called 
+the game "James Bond meets The X-Files".[6] He wrote that the team overextended 
+itself by planning such elaborate scenes, especially parts such as a replica of 
+downtown Austin,[11] Area 51 reconstructed from satellite data,[16] a sunken 
+post-earthquake Los Angeles, a raid to free thousands of prisoners of war from a 
+Federal Emergency Management Agency-controlled United Nations concentration 
+camp, and over 25 missions throughout Siberia, western Europe, and the United 
+States.[16]
+
+Designer Harvey Smith suggested a streamlined plot that removed the Mexican 
+invasion to make development easier and the narrative more personal. While 
+finished assets were repurposed, entire parts of the game were abandoned, 
+including Texas and the Denver airport. Environments such as a flooded city 
+became a Majestic 12 research site and the endgame Helios space station became 
+Area 51. He also made the call to remove a playable mid-game White House level 
+due to its complexity and production needs in other areas. Pete Davison of 
+USgamer referred to the White House and presidential bunker as "the truly 
+deleted scenes of Deus Ex's lost levels".[8] Spector referred to his "dream" 
+level[16]—the White House—as their "toughest map challenge".[18] The team has 
+speculated that the assets may exist on a "DVDs in someone's attic", though 
+Pacotti, Smith, Spector, and the final release have no trace of them.[8] Pacotti 
+felt that the experience of rescuing Paul was worth cutting the White House from 
+the game.[8]
+
+Testing revealed that their idea of a role-playing game based in the real world 
+was more interesting in theory than actuality.[18] They chose two real-world 
+inspirations for levels: "highly interconnected, multi-level" spaces and places 
+one cannot normally visit (such as the White House).[4] In practice, they felt 
+that some functions of the real world, such as hotels and office buildings, were 
+not compelling in a game,[18] and that "reality" always lost when up against 
+"fun".[4] Their recreations of notable locations and items such as the Statue of 
+Liberty and payphones were questioned when they did not emulate the actual site 
+or function. Internally, the team began to doubt their investment in a 
+non-player character-driven game as sufficiently interesting. Spector was swayed 
+by this widespread sentiment to have "monsters and bad guys", and the team 
+increased the prominence of several robots and added genetically-altered animals 
+that still fit the story.[18]
+Design
+
+The game was designed to be "genre-busting"—partly simulation, role-playing 
+game, first-person shooter, and adventure.[6] Spector intended for Deus Ex to be 
+an "immersive simulation" similar to Ultima Underworld[5] by removing reminders 
+of the game world such as interface or backstory.[6] He described the game's 
+role-playing elements as the player-character becomes a "unique alter ego" built 
+from the ramifications of their unique gameplay decisions.[6] Similar to a 
+first-person shooter, the game uses a first-person perspective and includes 
+shooting, but there are other non-violent gameplay options. Like an adventure 
+game, Deux Ex is primarily based on a linear narrative story and item 
+collection, though its puzzles are open-ended with many possible solutions and 
+consequences. Ion Storm felt the game was about player expression rather than 
+the appearance of the developers' ingenuity, and wanted to treat the player as a 
+"collaborator" that they could empower to make choices and deal with 
+consequences.[6]
+
+Once implemented, the team's game systems did not work as intended. They built 
+prototypes of the systems and some missions towards the beginning of 
+development, which uncovered some of their blind spots.[10] For example, their 
+early implementation of the conversation system and user interface afforded them 
+enough time to revise by the final release.[11] They also found the 
+augmentations and skills to not be as interesting in implementation as they 
+seemed in the design document.[10] Developers from other companies, such as Doug 
+Church, Rob Fermier, Marc LeBlanc, and Gabe Newell, identified these 
+deficiencies in game "tension" when they played the prototype.[18] This led to a 
+substantial revision of the augmentations and skills; Smith designed an 
+augmentation per-use "energy cost" that led to energy refill rewards and more 
+tactical play.[16]
+
+Their milestones served as wake-up calls for the game's direction. A May 1998 
+"proto-mission" milestone was to have a basic but functional demo of the crucial 
+game systems and two maps (the White House and Hong Kong) ready.[18] The team 
+worked on the riskiest parts of the game first such that the core game would be 
+functioning, albeit not polished. The demo revealed that the size of their maps 
+caused speed problems and would have to be divided into smaller maps. It also 
+was one of the first signs that maps needed to be cut. The team forgot to 
+prototype the non-player character artificial intelligence in this demo. A year 
+later, in May 1999, they reached a milestone for finished game systems and the 
+first two missions completed. While the player could start the game and 
+character, use augmentations, acquire inventory, complete objectives, and save 
+the game, their poor quality and comments from Newell led Spector to nickname 
+milestone the "Wow, these missions suck" milestone.[18] They felt that their 
+first demos showed their potential, but they were not nearly close to reaching 
+it. This milestone also helped them estimate the work required for missions and 
+the portions that worked best, which led to a trim of their 500-page design 
+manual to the best 270 pages.[18] Spector recalled Smith's mantra here: "less is 
+more". [19]
+
+Smith had "an intimacy" with the level design tools such that he could sense 
+when the design met the game's technical restrictions, like the maximum possible 
+size or number of characters for a room. He suggested the narrower skill tree 
+with palpable effects, such as exchanging skills about weapon damage for more 
+accessible weapons.[8] The team adopted the cuts, having been encouraged by the 
+recent milestone. Spector has said that had they waited for the beta to have 
+made the same reductions (as per common practice), "it would have been a 
+disaster."[20] Spector's post-proto-mission strategy was to bring the rest of 
+the missions to proto-mission functionality rather than perfecting the two 
+existing proto-missions. He felt that this would be a more efficient use of 
+staff time, even if it meant that the final product would be more "bare-bones" 
+than brilliant.[15] Almost all of their game systems besides the inventory and 
+conversation schemes were rethought up through the end of the project.[21]
+
+They also made choices about the minutiae of game mechanics. The team chose to 
+pause the action while the player was viewing interfaces as to keep the strategy 
+tactical, and to make the affinity of strangers and purpose of items "instantly 
+recognizable".[21] Spector said that the issue of naming the player-character 
+almost incited a "holy war", though they compromised and let the player choose 
+in exchange for a common "code name and backstory".[21] They also saved the 
+cinematic cutscene work for last so as not to repeat work as things changed 
+during development.[21]
+
+Spector wrote that the team did not figure out how to handle NPC AI until late 
+in development.[11] This led to wasted time as the team discarded their early 
+AI. They were also building atop their game engine's shooter-based AI instead of 
+building a customized version anew to handle the spectrum of convincing emotions 
+they wanted from their characters. As a result, NPC behavior was variable until 
+the very end of development. Spector felt that their "sin" was their 
+inconsistent display of a trustable "human AI".[11]
