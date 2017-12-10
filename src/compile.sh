@@ -25,5 +25,5 @@ var=`basename $file_name .l`
 #else
 #	echo "translator.py exit with errors"
 #fi
-rm $var"_.s" $var"_.l"
+rm $var"_.s" #$var"_.l"
 

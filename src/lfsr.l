@@ -1,20 +1,48 @@
 main(/)
-	*** *test_lfsr(/)
+	*** *test_lfsr1(/)
 	*test_lfsr2(/)
+	*** *test_lfsr3(/)
 **
 
 *** алгоритм подсчёта веса с булевых функций быстрее побитового сдвига?
 
 
-test_lfsr2(/)
+*** configuration #3
+test_lfsr3(/)
 	@+L1(100)
 	@+L2(100)
-	1=Q1=Q2 1001b=L2.0
-	1111b=L1.0
-	Oi 10=w
+	
+	
+	1=Q1=Q2 80200003h=L2.0
+	ffffffffh=L1.0
+	Oi 500=w
 	*printShiftReg(L1/) /'\n'>C
 	P1
 		?(i>w)2 *doLFSR(L1, L2/L1, b) Di
+		*** *printf(b/) /' '>C
+		*printShiftReg(L1/) /'\n'>C
+		?=1
+	P2 /'\n'>C *printShiftReg(L1/) /'\n'>C
+	
+**
+
+
+*** configuration #2
+test_lfsr2(/)
+	@+L1(100)
+	@+L2(100)
+	
+	
+	1=Q1=Q2
+	1001b=L2.0
+	*** 1100b=L2.0
+	1111b=L1.0
+	1111b=t
+	Oi 31-1=w
+	*printShiftReg(L1/) /'\n'>C
+	P1
+		?(i>w)2 *doLFSR(L1, L2/L1, b) Di
+		L1.0&t=L1.0
 		*printf(b/) /' '>C
 		*printShiftReg(L1/) /'\n'>C
 		?=1
@@ -22,7 +50,9 @@ test_lfsr2(/)
 	
 **
 
-test_lfsr(/)
+
+*** configuration #1
+test_lfsr1(/)
 	@+L1(100)
 	@+L2(100)
 	

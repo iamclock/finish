@@ -1,22 +1,21 @@
-build_lfsrl:
-	./translator.py lfsr.l
-	./ltc lfsr_.l
-build_lfsrc:
-	gcc -O0 -o lfsr lfsr.c
-build_lfsrc_dbg:
-	gcc -ggdb -g3 -O0 -o lfsr lfsr.c
-run:
+lfsr:
+	./compile.sh lfsr.l
+	# ./lfsr_
+lfsrc:
+	gcc -O0 -o lfsrc lfsr.c
+lfsrc_dbg:
+	gcc -ggdb -g3 -O0 -o lfsrc lfsr.c
+build_moy_pid:
 	./compile.sh moy_pid.l
+run: build_moy_pid
 	./moy_pid_
 
 #clear output files
+is_different:
+	diff text.txt decrypt.txt
 cof:
 	echo -n > crypt.txt > decrypt.txt
-lfsrl: lfsrl
-	rm lfsr_.l lfsr_.s
-lfsrc: lfsrc
-	./lfsr
-runl: build_lfsrl
-	./lfsrl_
-clean:
+rm_useless_moy_pid_files:
+	rm moy_pid_.s moy_pid_.l
+clean_lfsr:
 	rm lfsr_.s lfsr_.o

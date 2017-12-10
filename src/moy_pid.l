@@ -11,12 +11,43 @@
 *** 
 *** 
 
+*** SOURCES
+*** -----------------------
+*** 1. https://habrahabr.ru/post/140095/
+*** 2. https://media.readthedocs.org/pdf/pylfsr/latest/pylfsr.pdf
+*** 3. https://www.xilinx.com/support/documentation/application_notes/xapp052.pdf
+*** 4. http://courses.cse.tamu.edu/walker/csce680/lfsr_table.pdf
+*** 5. https://users.ece.cmu.edu/~koopman/lfsr/index.html
+
+*** ************************
+
+
 
 *** descendant - потомок
 *** ancestor - предок
 main(/)
-	*** *encrPrep(/)
-	*decrPrep(/)
+	@+L1(5)
+	@+L2(5)
+	1=Q1=Q2
+	ffffffffh=L1.0 *** сид
+	80200003h=L2.0 *** полином
+	*** a3000000h=L2.0
+	3=c *** счётчик для смены ключа
+	500000=s
+	5A1F0535h=X
+	
+	*** T=X
+	*** X&ffffh<16=p
+	*** /'p = '>C *Hprintf(p/) /'\n'>C
+	*** X&ffffh|p=p=X *** Инициализация X
+	*** /'p = '>C *Hprintf(p/) /'\n'>C
+	*** T=o
+	*** /'T = '>C *Hprintf(o/) /'\n'>C
+	*** o=X
+	
+	*encrPrep(L1, L2, c, s/)
+	ffffffffh=L1.0 5A1F0535h=X
+	*decrPrep(L1, L2, c, s/)
 	*** *tt(/)
 	*** *testMaxL(/)
 	*** *submain2(/)
@@ -248,22 +279,22 @@ testMaxL(/)
 *** r - дескриптор файла с текстом
 *** w - дескриптор файла с криптограммой
 *** F3 - ключевой поток
-*** s - счётчик для смены ключа [switch]
+*** s - счётчик для смены текущего состояния автомата [switch]
 *** e - код возврата(0 - хорошо)
 decrypt(L1, L2, L5, L6, r, w, x, s/e)
-	1010=n Oe
+	1010=n Oe=l
 	@+F3(n)
 	@+F4(n)
 	1000=Q3=Q4
 	/'s = '>C *printf(s/) /'\n'>C
 	P1
 		/'		x = '>C *printf(x/) /'\n'>C
-		*genKeyStream(x, L1, L2, L5, L6, Q3, s/F3, L5, x, e)
+		*genKeyStream(x, L1, L2, L5, L6, Q3, s, l/F3, L5, x, l, e)
 		OQ4 *freadf(r, F4, 0, Q3/k)
 		*** /'k = '>C *printf(k/) /' '>C
 		?(k<1)2 k=Q4
 		Q4=Q3
-		*xorF(F3, F4/F4)
+		*xorF(F3, F4/F4) *** F3^F4=F4
 		*fwritef(w, F4, 0, Q4/k)
 		*** /'k = '>C *printf(k/) /'\n'>C
 		?=1
@@ -273,9 +304,11 @@ decrypt(L1, L2, L5, L6, r, w, x, s/e)
 
 *** подготовка к расшифрованию и расшифрование
 *** [Это может быть в главной функции]
-*** L4 - регистр сдвига
+*** L4 - регистр сдвига, seed
 *** L5 - полином для LFSR
-decrPrep(/)
+*** c - счётчик для смены текущего состояния автомата [switch]
+*** s - количество состояний
+decrPrep(L4, L5, c, s/)
 	@+F1(100)
 	
 	*** OQ1 /'Key value: '>C
@@ -284,9 +317,9 @@ decrPrep(/)
 	*** *scanf(F1, 0, 10/k, i)
 	*** *printf(k/) /'\n'>C
 	
-	OQ1 /'Number of states: '>C
-	@'5000'>F1 /F1>C /'\n'>C *** /F1<C
-	*scanf(F1, 0, 10/s, i)
+	*** OQ1 /'Number of states: '>C
+	*** @'5000'>F1 /F1>C /'\n'>C *** /F1<C
+	*** *scanf(F1, 0, 10/s, i)
 	*** OQ1 @'keys.txt'>F1
 	*** *readKeyFromFile(F1/k, l)
 	OQ1 @'crypt.txt'>F1
@@ -312,23 +345,17 @@ decrPrep(/)
 	*** T&ffffh|p=p=X *** Инициализирую X значением времени
 	***+ для получения случайных значений
 	*** /'p = '>C *Hprintf(p/) /'\n'>C
-	T=o
+	*** T=o
 	*** /'T = '>C *Hprintf(o/) /'\n'>C
-	T=X
+	*** T=X
 	
-	5A1F0535h=X
-	5000=s
+	*** 5A1F0535h=X
+	*** 5000=s
 	s+5=q
 	@+L2(q)
 	*** /!\ возможно ли, что Il>5+3 выйдет за границы 32ух бит?
 	*BFfindVarCount(s/l) Il>5+3=q
 	@+L3(q)
-	@+L4(5)
-	@+L5(5)
-	1=Q4=Q5
-	ffffffffh=L4.0 *** сид
-	5=L5.0
-	9=c *** счётчик для смены ключа
 	
 	*** X *** здесь потому что в encrPrep ключ получается обращением к X
 	***+ и тогда keyGenerate генерирует не правильный ключевой поток
@@ -351,22 +378,22 @@ decrPrep(/)
 *** r - дескриптор файла с текстом
 *** w - дескриптор файла с криптограммой
 *** F3 - ключевой поток
-*** s - счётчик для смены ключа [switch]
+*** s - счётчик для смены текущего состояния автомата [switch]
 *** e - код возврата(0 - хорошо)
 encrypt(L1, L2, L5, L6, r, w, x, s/e)
-	1010=n Oe
+	1010=n Oe=l
 	@+F3(n)
 	@+F4(n)
 	1000=Q3=Q4
 	/'s = '>C *printf(s/) /'\n'>C
 	P1
 		/'		x = '>C *printf(x/) /'\n'>C
-		*genKeyStream(x, L1, L2, L5, L6, Q3, s/F3, L5, x, e)
+		*genKeyStream(x, L1, L2, L5, L6, Q3, s, l/F3, L5, x, l, e)
 		OQ4 *freadf(r, F4, 0, Q3/k)
 		*** /'k = '>C *printf(k/) /' '>C
 		?(k<1)2 k=Q4
 		Q4=Q3
-		*xorF(F3, F4/F4)
+		*xorF(F3, F4/F4) *** F3^F4=F4
 		*fwritef(w, F4, 0, Q4/k)
 		*** /'k = '>C *printf(k/) /'\n'>C
 		?=1
@@ -378,7 +405,9 @@ encrypt(L1, L2, L5, L6, r, w, x, s/e)
 *** [Это может быть в главной функции]
 *** L4 - регистр сдвига
 *** L5 - полином для LFSR
-encrPrep(/)
+*** c - счётчик для смены текущего состояния автомата [switch]
+*** s - количество состояний
+encrPrep(L4, L5, c, s/)
 	@+F1(100)
 	
 	*** /'n = '>C *printf(n/) /'\n'>C
@@ -417,23 +446,17 @@ encrPrep(/)
 	*** T&ffffh|p=p=X *** Инициализирую X значением времени
 	***+ для получения случайных значений
 	*** /'p = '>C *Hprintf(p/) /'\n'>C
-	T=o
+	*** T=o
 	*** /'T = '>C *Hprintf(o/) /'\n'>C
-	T=X
+	*** T=X
 	
-	5A1F0535h=X
-	5000=s
+	*** 5A1F0535h=X
+	*** 5000=s
 	s+5=q
 	@+L2(q)
 	*** /!\ возможно ли, что Il>5+3 выйдет за границы 32ух бит?
 	*BFfindVarCount(s/l) Il>5+3=q *** /'l = '>C *printf(l/) /'\n'>C
 	@+L3(q)
-	@+L4(5)
-	@+L5(5)
-	1=Q4
-	ffffffffh=L4.0 *** сид
-	5=L5.0
-	9=c *** счётчик для смены ключа
 	*** /'key = '>C *printf(k/) /'\n'>C
 	
 	*genAutomat(s, l/L2, L3, x, e)
@@ -512,14 +535,16 @@ xorF(F1, F2/F3)
 *** L4 - регистр сдвига
 *** L5 - полином для регистра сдвига
 *** n - мощность комплекса F3
+*** s - счётчик для смены текущего состояния автомата [switch]
+*** l - номер текущего обращения
 *** e - признак ошибки
-genKeyStream(x, L1, L2, L4, L5, n, s/F3, L4, x, e)
-	n=Q3-1=w Oi=l s-1=q
+genKeyStream(x, L1, L2, L4, L5, n, s, l/F3, L4, x, l, e)
+	n=Q3-1=w Oi s+1=q
 	*** /'s = '>C *printf(s/) /'\n'>C
 	P1 ?(i>w)4 Oj=F3i
 	P2 ?(j>7)3
-		/'l = '>C *printf(l/) /'\n'>C
-		Dl ?(l<s)93 *doLFSR(L4, L5/L4, b) Ol L4.0;Q1=x *** no eto ne tochno!!!!
+		Dl /'l = '>C *printf(l/) /'\n'>C
+		?(l<q)93 *doLFSR(L4, L5/L4, b) Ol L4.0;Q1=x *** no eto ne tochno!!!!
 		/'LFSR done\n'>C
 		/'L4.0 = '>C *Hprintf(L4.0/) /'\n'>C
 	P93
