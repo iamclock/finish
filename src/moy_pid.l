@@ -33,7 +33,7 @@ main(/)
 	80200003h=L2.0 *** полином
 	*** a3000000h=L2.0
 	3=c *** счётчик для смены ключа
-	500000=s
+	50000=s
 	5A1F0535h=X
 	
 	*** T=X
@@ -45,9 +45,9 @@ main(/)
 	*** /'T = '>C *Hprintf(o/) /'\n'>C
 	*** o=X
 	
-	*encrPrep(L1, L2, c, s/)
+	/'encrypt\n'>C *encrPrep(L1, L2, c, s/)
 	ffffffffh=L1.0 5A1F0535h=X
-	*decrPrep(L1, L2, c, s/)
+	/'decrypt\n'>C *decrPrep(L1, L2, c, s/)
 	*** *tt(/)
 	*** *testMaxL(/)
 	*** *submain2(/)
@@ -405,25 +405,38 @@ bv_printZerosPlaces(L1/)
 **
 
 
+bv_weight(L1/w)
+	1=i Q1-1=q Ow
+	P1 ?(i>q)2 L1i%+w=w Di ?=1
+	P2
+**
+
+***********************************************************************
+
+
+
 *** Расшифрование
 *** L1 - таблица переходов автомата
 *** L2 - функция выходов автомата
 *** L5 - регистр сдвига
 *** L6 - полином для LFSR
+*** L7 - булев вектор для проверки посещённых состояний автомата
 *** r - дескриптор файла с текстом
 *** w - дескриптор файла с криптограммой
 *** F3 - ключевой поток
 *** s - счётчик для смены текущего состояния автомата [switch]
 *** e - код возврата(0 - хорошо)
-decrypt(L1, L2, L5, L6, r, w, x, s/e)
+decrypt(L1, L2, L5, L6, L7, r, w, x, s/L7, e)
 	1010=n Oe=l
 	@+F3(n)
 	@+F4(n)
 	1000=Q3=Q4
 	/'s = '>C *printf(s/) /'\n'>C
+	*** 4=s 5=a 6=c 9=m
 	P1
-		/'		x = '>C *printf(x/) /'\n'>C
-		*genKeyStream(x, L1, L2, L5, L6, Q3, s, l/F3, L5, x, l, e)
+		*** /'		x = '>C *printf(x/) /'\n'>C
+		*** *lcg(a, s, c, m/s) /'s = '>C *printf(s/) /'\n'>C
+		*genKeyStream(x, L1, L2, L5, L6, L7, Q3, s, l/F3, L5, L7, x, l, e)
 		OQ4 *freadf(r, F4, 0, Q3/k)
 		*** /'k = '>C *printf(k/) /' '>C
 		?(k<1)2 k=Q4
@@ -440,6 +453,7 @@ decrypt(L1, L2, L5, L6, r, w, x, s/e)
 *** [Это может быть в главной функции]
 *** L4 - регистр сдвига, seed
 *** L5 - полином для LFSR
+*** L6 - булев вектор для проверки посещённых состояний автомата
 *** c - счётчик для смены текущего состояния автомата [switch]
 *** s - количество состояний
 decrPrep(L4, L5, c, s/)
@@ -490,6 +504,10 @@ decrPrep(L4, L5, c, s/)
 	*** /!\ возможно ли, что Il>5+3 выйдет за границы 32ух бит?
 	*BFfindVarCount(s/l) Il>5+3=q
 	@+L3(q)
+	s/32+3=k
+	@+L6(k)
+	*bv_constructor3(L6, s, 0/L6)
+	/'weight before = '>C *bv_weight(L6/t) *printf(t/) /'\n'>C
 	
 	*** X *** здесь потому что в encrPrep ключ получается обращением к X
 	***+ и тогда keyGenerate генерирует не правильный ключевой поток
@@ -498,7 +516,10 @@ decrPrep(L4, L5, c, s/)
 	*** /'s = '>C *printf(s/) /'\n'>C
 	*** /'l = '>C *printf(l/) /'\n'>C
 	*genAutomat(s, l/L2, L3, x, e)
-	*decrypt(L2, L3, L4, L5, r, w, x, c/e)
+	*decrypt(L2, L3, L4, L5, L6, r, w, x, c/L6, e)
+	*** *bv_printOnesPlaces(L6/)
+	*** *bv_print(L6/)
+	/'weight = '>C *bv_weight(L6/w) *printf(w/) /'\n'>C
 	*fclose(r/)
 	*fclose(w/)
 **
@@ -509,20 +530,23 @@ decrPrep(L4, L5, c, s/)
 *** L2 - функция выходов автомата
 *** L5 - регистр сдвига
 *** L6 - полином для LFSR
+*** L7 - булев вектор для проверки посещённых состояний автомата
 *** r - дескриптор файла с текстом
 *** w - дескриптор файла с криптограммой
 *** F3 - ключевой поток
 *** s - счётчик для смены текущего состояния автомата [switch]
 *** e - код возврата(0 - хорошо)
-encrypt(L1, L2, L5, L6, r, w, x, s/e)
+encrypt(L1, L2, L5, L6, L7, r, w, x, s/L7, e)
 	1010=n Oe=l
 	@+F3(n)
 	@+F4(n)
 	1000=Q3=Q4
 	/'s = '>C *printf(s/) /'\n'>C
+	*** 3=s 2=a 2=c 7=m
 	P1
-		/'		x = '>C *printf(x/) /'\n'>C
-		*genKeyStream(x, L1, L2, L5, L6, Q3, s, l/F3, L5, x, l, e)
+		*** /'		x = '>C *printf(x/) /'\n'>C
+		*** *lcg(a, s, c, m/s) /'s = '>C *printf(s/) /'\n'>C
+		*genKeyStream(x, L1, L2, L5, L6, L7, Q3, s, l/F3, L5, L7, x, l, e)
 		OQ4 *freadf(r, F4, 0, Q3/k)
 		*** /'k = '>C *printf(k/) /' '>C
 		?(k<1)2 k=Q4
@@ -539,6 +563,7 @@ encrypt(L1, L2, L5, L6, r, w, x, s/e)
 *** [Это может быть в главной функции]
 *** L4 - регистр сдвига
 *** L5 - полином для LFSR
+*** L6 - булев вектор для проверки посещённых состояний автомата
 *** c - счётчик для смены текущего состояния автомата [switch]
 *** s - количество состояний
 encrPrep(L4, L5, c, s/)
@@ -591,13 +616,27 @@ encrPrep(L4, L5, c, s/)
 	*** /!\ возможно ли, что Il>5+3 выйдет за границы 32ух бит?
 	*BFfindVarCount(s/l) Il>5+3=q *** /'l = '>C *printf(l/) /'\n'>C
 	@+L3(q)
+	s/32+3=k
+	@+L6(k)
+	*bv_constructor3(L6, s, 0/L6)
+	/'weight before = '>C *bv_weight(L6/t) *printf(t/) /'\n'>C
 	*** /'key = '>C *printf(k/) /'\n'>C
 	
 	*genAutomat(s, l/L2, L3, x, e)
-	*encrypt(L2, L3, L4, L5, r, w, x, c/e)
+	*encrypt(L2, L3, L4, L5, L6, r, w, x, c/L6, e)
+	*** *bv_printOnesPlaces(L6/) /'\n'>C
+	*** *bv_print(L6/) /'\n'>C
+	/'weight = '>C *bv_weight(L6/w) *printf(w/) /'\n'>C
 	*fclose(r/)
 	*fclose(w/)
 **
+
+
+*** Линейный конгруэнтный метод
+lcg(a, x, c, m/x)
+	a*x+c;m=x
+**
+
 
 
 
@@ -668,21 +707,23 @@ xorF(F1, F2/F3)
 *** F3 - ключевой поток
 *** L4 - регистр сдвига
 *** L5 - полином для регистра сдвига
+*** L6 - булев вектор для проверки посещённых состояний автомата
 *** n - мощность комплекса F3
 *** s - счётчик для смены текущего состояния автомата [switch]
 *** l - номер текущего обращения
 *** e - признак ошибки
-genKeyStream(x, L1, L2, L4, L5, n, s, l/F3, L4, x, l, e)
+genKeyStream(x, L1, L2, L4, L5, L6, n, s, l/F3, L4, L6, x, l, e)
 	n=Q3-1=w Oi s+1=q
 	*** /'s = '>C *printf(s/) /'\n'>C
 	P1 ?(i>w)4 Oj=F3i
 	P2 ?(j>7)3
-		Dl /'l = '>C *printf(l/) /'\n'>C
+		Dl *** /'l = '>C *printf(l/) /'\n'>C
 		?(l<q)93 *doLFSR(L4, L5/L4, b) Ol L4.0;Q1=x *** no eto ne tochno!!!!
-		/'LFSR done\n'>C
-		/'L4.0 = '>C *Hprintf(L4.0/) /'\n'>C
+		*** /'LFSR done\n'>C
+		*** /'L4.0 = '>C *Hprintf(L4.0/) /'\n'>C
 	P93
-		/'x = '>C *printf(x/) /'\n'>C
+		*** /'x = '>C *printf(x/) /'\n'>C
+		*bv_set(L6, x, 1/L6)
 		*automatB(x, L1, L2/b, x)
 		b<j|F3i=F3i Dj
 		?=2

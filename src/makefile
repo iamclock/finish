@@ -19,3 +19,6 @@ rm_useless_moy_pid_files:
 	rm moy_pid_.s moy_pid_.l
 clean_lfsr:
 	rm lfsr_.s lfsr_.o
+
+
+# make cof && ./compile.sh moy_pid.l && ./moy_pid_ > /tmp/deep.log

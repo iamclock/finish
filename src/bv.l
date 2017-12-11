@@ -235,6 +235,13 @@ bv_printZerosPlaces(L1/)
 **
 
 
+bv_weight(L1/w)
+	1=i Q1-1=q Ow
+	P1 ?(i>q)2 L1i%+w=w Di ?=1
+	P2
+**
+
+
 bv_shiftr()
 **
 
