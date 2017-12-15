@@ -1,10 +1,31 @@
 main(/)
 	*** *test_lfsr1(/)
-	*test_lfsr2(/)
+	*** *test_lfsr2(/)
 	*** *test_lfsr3(/)
+	*test_lfsr4(/)
+	
 **
 
 *** алгоритм подсчёта веса с булевых функций быстрее побитового сдвига?
+
+test_lfsr4(/)
+	@+L1(100)
+	@+L2(100)
+	
+	
+	2=Q1=Q2
+	80000000h=L2.1 00001324h=L2.0
+	ffffffffh=L1.0=L1.1
+	Oi 70=w
+	*printShiftReg(L1/) /'\n'>C
+	P1
+		?(i>w)2 *doLFSR(L1, L2/L1, b) Di
+		*** *printf(b/) /' '>C
+		*printShiftReg(L1/) /'\n'>C
+		?=1
+	P2 /'\n'>C *printShiftReg(L1/) /'\n'>C
+**
+
 
 
 *** configuration #3
@@ -112,19 +133,17 @@ doLFSR(L1, L2/L1, b)
 	1=Q3 L1.0&L2.0=L3.0
 	L1.0%=k ?(k>0)92 ?=101
 	P93 *** случай для лфср >32 бит
-		Q1/2=j-1=w
-	Oi
+		Q1/2-1=i Q1-1=j *** Q1/2=j-1=w Oi
 	P91
-		?(i>w)94 L1i&L2i=h L1j&L2j=l
+		?(i>Q1)94 L1i&L2i=h L1j&L2j=l
 		*** /'low: '>C *Hprintf2(l/) /' '>C
 		*** /'high: '>C *Hprintf2(h/) /'\n'>C
-		h^l=L3i Di Dj ?=91
+		h^l=L3i Yi Yj ?=91
 	P94
-		Q3/2=j-1=w Oi
+		Q3/2-1=i Q3-1=j
 	P95
-		?(i>w)92 L3i^L3j=L3i
-		*** /'L3 = '>C *HprintfBN2(L3/) /'\n'>C
-		Di Dj ?=95
+		?(i>Q3)92 L3i^L3j=L3i
+		Yi Yj ?=95
 	P92
 		*** /'Q3 = '>C *printf(Q3/) /'\n'>C
 		*** /'L3 = '>C *HprintfBN(L3/) /'\n'>C

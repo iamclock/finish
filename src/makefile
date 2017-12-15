@@ -21,4 +21,7 @@ clean_lfsr:
 	rm lfsr_.s lfsr_.o
 
 
-# make cof && ./compile.sh moy_pid.l && ./moy_pid_ > /tmp/deep.log
+command:
+	echo "make cof && ./compile.sh moy_pid.l && ./moy_pid_ > /tmp/deep.log"
+command2:
+	echo "for i in `seq 11`; do time ./decr; done |& tee -a ./decr_times.txt"
