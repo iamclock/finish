@@ -23,8 +23,8 @@
 *** ************************
 
 main(/)
-	*main_for_time(/)
-	*** *main_encr_decr(/)
+	*** *main_for_time(/)
+	*main_encr_decr(/)
 	*** *lfsr_test(/)
 **
 
@@ -41,7 +41,7 @@ main_encr_decr(/)
 	*** 1=Q1=Q2 a3000000h=L2.0 ffffffffh=L1.0
 	*** 2=Q1=Q2 80000000h=L2.1 00001324h=L2.0 ffffffffh=L1.0=L1.1
 			*** счётчик для смены текущего состояния автомата
-	3=c
+	10=c
 			*** Число состояний автомата
 	*** 134217728=s
 	*** 33554432=s
@@ -90,13 +90,8 @@ main_for_time(/)
 	
 	C68B8B7Eh=t
 	*** *time_automatgen(s, t/)
-	*** 1=Q1=Q2 C3h=L2.0 ffh=L1.0
-	*** 1=Q1=Q2 822Bh=L2.0 ffffh=L1.0
-	1=Q1=Q2 80200003h=L2.0 ffffffffh=L1.0
-	*** 1=Q1=Q2 a3000000h=L2.0 ffffffffh=L1.0
-	*** 2=Q1=Q2 80000000h=L2.1 00001324h=L2.0 ffffffffh=L1.0=L1.1
 	*** /'Encrypt\n'>C
-	*** C68B8B7Eh=X *time_encr(L1, L2, c, s/)
+	C68B8B7Eh=X *time_encr(L1, L2, c, s/)
 	*** /'Decrypt\n'>C
 	*** C68B8B7Eh=X *time_decr(L1, L2, c, s/)
 **
@@ -827,7 +822,7 @@ genKeyStream_wbv(x, L1, L2, L4, L5, L6, n, s, l/F3, L4, L6, x, s, l, e)
 		?(l<q)93 *doLFSR(L4, L5/L4, b) Ol L4.0;Q1=x *** no eto ne tochno!!!!
 		*** /'l = '>C *printf(l/) /'\n'>C
 		*** /'s = '>C *printf(s/) /'\n'>C
-		*lcg(a, s, c, m/s) s+1=q *** /'s = '>C *printf(s/) /'\n'>C
+		*lcg(a, s, c, m/s) s+1=q /'s = '>C *printf(s/) /'\n'>C
 		*** /'LFSR done\n'>C
 		*** /'L4.0 = '>C *Hprintf(L4.0/) /'\n'>C
 	P93
