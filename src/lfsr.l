@@ -117,6 +117,15 @@ lfsr(/)
 **
 
 
+doSlowLFSR(L1, L2/L1)
+	(Q1=0)100
+	
+	
+	P100
+**
+
+
+
 *** L1 - shift register L1.0 - low, ..., L1.[Q1-1] - high
 *** L2 - tap mask L2.0 - low, ..., L2.[Q2-1] - high
 doLFSR(L1, L2/L1, b)
