@@ -2,11 +2,56 @@ main(/)
 	*** *test_lfsr1(/)
 	*** *test_lfsr2(/)
 	*** *test_lfsr3(/)
-	*test_lfsr4(/)
-	
+	*** *test_lfsr4(/)
+	*** *test_lfsr5_16(/)
+	*test_slowlfsr1_16(/)
 **
 
 *** алгоритм подсчёта веса с булевых функций быстрее побитового сдвига?
+
+test_slowlfsr1_16(/)
+	@+L1(100)
+	@+L2(100)
+	
+	
+	1=Q1=Q2
+	B400h=L2.0
+	ACE1h=L1.0=s
+	Oi 5=w Yw
+	*printShiftReg(L1/) /'\n'>C
+	P1
+		?(i>w)2
+		*** ?(L1.0=s)2
+		*doSlowLFSR(L1, L2/L1, b) Di
+		*** *printf(b/) /' '>C
+		*** *printShiftReg(L1/) /'\n'>C
+		?=1
+	P2 /'\n'>C *printShiftReg(L1/) /'\n'>C
+	/'period = '>C *printf(i/) /'\n'>C
+**
+
+
+
+test_lfsr5_16(/)
+	@+L1(100)
+	@+L2(100)
+	
+	
+	1=Q1=Q2
+	B400h=L2.0
+	ACE1h=L1.0
+	Oi 5=w Yw
+	*printShiftReg(L1/) /'\n'>C
+	P1
+		?(i>w)2 *doLFSR(L1, L2/L1, b) Di
+		L1.0&ffffh=L1.0
+		*** *printf(b/) /' '>C
+		*printShiftReg(L1/) /'\n'>C
+		?=1
+	P2 /'\n'>C *printShiftReg(L1/) /'\n'>C
+**
+
+
 
 test_lfsr4(/)
 	@+L1(100)
@@ -16,7 +61,7 @@ test_lfsr4(/)
 	2=Q1=Q2
 	80000000h=L2.1 00001324h=L2.0
 	ffffffffh=L1.0=L1.1
-	Oi 70=w
+	Oi 70=w Yw
 	*printShiftReg(L1/) /'\n'>C
 	P1
 		?(i>w)2 *doLFSR(L1, L2/L1, b) Di
@@ -36,7 +81,7 @@ test_lfsr3(/)
 	
 	1=Q1=Q2 80200003h=L2.0
 	ffffffffh=L1.0
-	Oi 500=w
+	Oi 500=w Yw
 	*printShiftReg(L1/) /'\n'>C
 	P1
 		?(i>w)2 *doLFSR(L1, L2/L1, b) Di
@@ -59,7 +104,7 @@ test_lfsr2(/)
 	*** 1100b=L2.0
 	1111b=L1.0
 	1111b=t
-	Oi 31-1=w
+	Oi 30=w Yw
 	*printShiftReg(L1/) /'\n'>C
 	P1
 		?(i>w)2 *doLFSR(L1, L2/L1, b) Di
@@ -82,7 +127,7 @@ test_lfsr1(/)
 	28000005h=L2.2 *** 00101000000000000000000000000101 or x^32+x^30+x^3+x^5+1
 	OL2.3=L2.1=L2.0
 	
-	Oi ffffh*32-1 65=w
+	Oi ffffh*32-1 65=w Yw
 	P1
 		?(i>w)2 *doLFSR(L1, L2/L1, b) Di
 		*printf(b/)
@@ -117,11 +162,26 @@ lfsr(/)
 **
 
 
-doSlowLFSR(L1, L2/L1)
-	(Q1=0)100
+*** slow LFSR с определением выходных битов
+slowLFSR()
 	
-	
-	P100
+**
+
+
+*** LFSR галуа
+*** L1 - регистр сдвига
+*** L2 - полином
+doSlowLFSR(L1, L2/L1, b)
+	?(Q1=0)2
+	L1.0&1=b
+	L1>1=L1
+	*** *HprintfBN(L1/) /'\n'>C
+	?(b=0)3
+	Oi Q1=w Yw
+	P1
+		?(i>w)3 L1i^L2i=L1i Di ?=1
+	P2 /'doSlowLFSR: ERROR: Q1 equals 0\n'>C
+	P3
 **
 
 
@@ -132,7 +192,7 @@ doLFSR(L1, L2/L1, b)
 	Q1+5=k
 	@+L3(k)
 	@+F4(100)
-	?(Q1<1)101
+	?(Q1<1)100
 	Q1/2=Q3
 	*** /'L1 = '>C *Hprintf2(L1.3/) *Hprintf2(L1.2/) *Hprintf2(L1.1/) *Hprintf2(L1.0/) /'\n'>C
 	*** /'L2 = '>C *Hprintf2(L2.3/) *Hprintf2(L2.2/) *Hprintf2(L2.1/) *Hprintf2(L2.0/) /'\n'>C
@@ -140,7 +200,7 @@ doLFSR(L1, L2/L1, b)
 	*** случай для лфср <33 бит
 	*** посчитать количество единиц в регистре и уйти в 92, если 0, то выход
 	1=Q3 L1.0&L2.0=L3.0
-	L1.0%=k ?(k>0)92 ?=101
+	L1.0%=k ?(k>0)92 ?=100
 	P93 *** случай для лфср >32 бит
 		Q1/2-1=i Q1-1=j *** Q1/2=j-1=w Oi
 	P91
@@ -172,12 +232,7 @@ doLFSR(L1, L2/L1, b)
 		*** /'c = '>C *printf(c/) /'\n'>C
 		*** /'v = '>C *printf(v/) /'\n'>C
 		*** /'b = '>C *printf(b/) /'\n'>C
-	Q1-1=i-1=j
-	P99
-		?(j>Q1)100
-		L1j>63=v L1i<1|v=L1i Yi Yj ?=99
-	P100
-		L1.0<1|b=L1.0
+	L1<1=L1 L1.0|b=L1.0
 	P101
 **
 
