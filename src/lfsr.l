@@ -4,10 +4,49 @@ main(/)
 	*** *test_lfsr3(/)
 	*** *test_lfsr4(/)
 	*** *test_lfsr5_16(/)
-	*test_slowlfsr1_16(/)
+	*** *test_slowlfsr1_16(/)
+	*check_period_and_time(/)
 **
 
 *** алгоритм подсчёта веса с булевых функций быстрее побитового сдвига?
+
+
+check_period_and_time(/)
+	@+L1(100)
+	@+L2(100)
+	@+L3(100)
+	@+L4(100)
+	2=Q3
+	1=Q1=Q2=Q4=L4.0
+	*** 200004E1h=L2.0
+	*** 3fffffffh=L1.0=s
+	80000A92h=L2.0
+	ffffffffh=L1.0=s
+	ffffffffh=m
+	
+	OL3.0=L3.1 *printShiftReg(L1/) /'\n'>C
+	T=t *doSlowLFSR(L1, L2/L1, b) L3+L4=L3 *** Di
+	P1 ?(L1.0=s)2
+		*doSlowLFSR(L1, L2/L1, b) L3+L4=L3 *** Di
+		*** *printf(b/) /' '>C
+		*** *printShiftReg(L1/) /'\n'>C
+		?=1
+	P2 T-t=t *printShiftReg(L1/) /'\n'>C
+	/'period = '>C *HprintfBN(L3/) /'\n'>C *** *printf(i/) /'\n'>C
+	/'time = '>C *printf(t/) /'\n\n'>C
+	OL3.0=L3.1 s=L1.0 *printShiftReg(L1/) /'\n'>C
+	T=t *doLFSR(L1, L2/L1, b) L3+L4=L3 *** Di
+	P3 ?(L1.0=s)4
+		*doLFSR(L1, L2/L1, b) L3+L4=L3 *** Di
+		*** *printf(b/) /' '>C
+		L1.0&m=L1.0
+		*** *printShiftReg(L1/) /'\n'>C
+		?=3
+	P4 T-t=t *printShiftReg(L1/) /'\n'>C
+	/'period = '>C *HprintfBN(L3/) /'\n'>C *** *printf(i/) /'\n'>C
+	/'time = '>C *printf(t/) /'\n'>C
+**
+
 
 test_slowlfsr1_16(/)
 	@+L1(100)
@@ -171,24 +210,24 @@ slowLFSR()
 *** LFSR галуа
 *** L1 - регистр сдвига
 *** L2 - полином
-doSlowLFSR(L1, L2/L1, b)
+doLFSR(L1, L2/L1, b)
 	?(Q1=0)2
 	L1.0&1=b
 	L1>1=L1
 	*** *HprintfBN(L1/) /'\n'>C
 	?(b=0)3
 	Oi Q1=w Yw
-	P1
-		?(i>w)3 L1i^L2i=L1i Di ?=1
+	L1^L2=L1 ?=3
+	*** P1 ?(i>w)3 L1i^L2i=L1i Di ?=1
 	P2 /'doSlowLFSR: ERROR: Q1 equals 0\n'>C
 	P3
 **
 
 
-
+*** LFSR фибоначи
 *** L1 - shift register L1.0 - low, ..., L1.[Q1-1] - high
 *** L2 - tap mask L2.0 - low, ..., L2.[Q2-1] - high
-doLFSR(L1, L2/L1, b)
+doSlowLFSR(L1, L2/L1, b)
 	Q1+5=k
 	@+L3(k)
 	@+F4(100)
@@ -233,7 +272,7 @@ doLFSR(L1, L2/L1, b)
 		*** /'v = '>C *printf(v/) /'\n'>C
 		*** /'b = '>C *printf(b/) /'\n'>C
 	L1<1=L1 L1.0|b=L1.0
-	P101
+	P100
 **
 
 

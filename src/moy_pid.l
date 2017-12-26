@@ -9,7 +9,35 @@
 *** fopen не создаёт файл
 *** сколько состояний у автомата
 *** 
+
+*** TODO diplom:
+*** -------------------------------
+*** Обзор по:
+***  -генераторам ключевого потока (кратко)
+***  -усложнениям LFSR (фильтрующий, комбинирующий и т.д. подробнее)
+*** -------------------------------
+*** в экспериментальных данных показать % сколько состояний посещено
+*** +(при количестве тактов в 10 раз больше, чем число состояний)
+*** -------------------------------
+*** результаты практики в диплом и на основании метода Флойда сделать
+*** +выводы об минимальном значении switchVal
+*** -------------------------------
+*** линейный конгруэнтный метод для переключения состояний
+*** требования к автомату (пример: большая линейная сложность)
+*** большое количество состояний автомата => большой текст (больше количества состояний)
+*** указывать количество обращений к автомату (такты) 1 мб текста ~ 8 388 608 тактов
+*** результаты для одного и того же текста на разных автоматах, провести анализ
+*** почему скорость зависит от размера автомата
+*** упор на генератор, а не на шифрование
+*** -------------------------------
+
+
+*** DONE:
+*** -------------------------------
 *** 
+*** 
+*** -------------------------------
+
 
 *** SOURCES
 *** -----------------------
@@ -23,9 +51,10 @@
 *** ************************
 
 main(/)
-	*main_for_time(/)
+	*** *main_for_time(/)
 	*** *main_encr_decr(/)
 	*** *lfsr_test(/)
+	*switchValAnalysePrep(/)
 **
 
 
@@ -41,11 +70,16 @@ main_encr_decr(/)
 	*** 1=Q1=Q2 a3000000h=L2.0 ffffffffh=L1.0
 	*** 2=Q1=Q2 80000000h=L2.1 00001324h=L2.0 ffffffffh=L1.0=L1.1
 			*** счётчик для смены текущего состояния автомата
-	29=c
+	448=c
 			*** Число состояний автомата
-	*** 134217728=s
-	*** 33554432=s
-	500000=s
+	*** 134217728=s *** 512 mb
+	*** 67108864=s *** 256 mb
+	*** 33554432=s *** 128 mb
+	*** 8388608=s *** для текста 10 мб
+	4194304=s *** для текста 5 мб
+	*** 838861=s *** для текста 1 мб
+	*** 524288=s *** 2 mb
+	*** 1048576=s
 		
 	*** T=X
 	*** X&ffffh<16=p
@@ -57,7 +91,8 @@ main_encr_decr(/)
 	*** o=X
 	
 	
-	C68B8B7Eh=X  *** Для отладки. Убрать
+	*** C68B8B7Eh=X  *** Для отладки. Убрать
+	346b1633h=X
 	/'Encrypt\n'>C ffffffffh=L1.0 *encrPrep(L1, L2, c, s/)
 	C68B8B7Eh=X *** Для отладки. Убрать
 	*** /'Decrypt\n'>C ffffffffh=L1.0 *decrPrep(L1, L2, c, s/)
@@ -83,15 +118,20 @@ main_for_time(/)
 			*** счётчик для смены текущего состояния автомата
 	100=c
 			*** Число состояний автомата
-	134217728=s
-	*** 33554432=s
-	*** 500000=s
+	*** 134217728=s *** 512 mb
+	*** 67108864=s *** 256 mb
+	*** 33554432=s *** 128 mb
+	*** 8388608=s *** для текста 10 мб
+	4194304=s *** для текста 5 мб
+	*** 838861=s *** для текста 1 мб
+	*** 524288=s *** 2 mb
+	*** 1048576=s
 	
 	
 	
-	C68B8B7Eh=X T=t *time_automatgen(s/) T-t=t *printf(t/)
+	*** C68B8B7Eh=X T=t *time_automatgen(s/) T-t=t *printf(t/)
 	*** /'Encrypt\n'>C
-	C68B8B7Eh=X T=t *time_encr(L1, L2, c, s/) T-t=t /'-'>C *printf(t/) /'+'>C
+	C68B8B7Eh=X *time_encr(L1, L2, c, s/)
 	*** /'Decrypt\n'>C
 	*** C68B8B7Eh=X *time_decr(L1, L2, c, s/)
 **
@@ -130,8 +170,8 @@ time_encr(L4, L5, c, s/)
 	@+L2(q)
 	*BFfindVarCount(s/l) Il>5+3=q
 	@+L3(q)
-	*genAutomat(s, l/L2, L3, x, e)
-	*cypher(L2, L3, L4, L5, r, w, x, c/e)
+	T=t *genAutomat(s, l/L2, L3, x, e) T-t=t *printf(t/) /'\n'>C
+	T=t *cypher(L2, L3, L4, L5, r, w, x, c/e) T-t=t *printf(t/) /'\n'>C
 	*fclose(r/)
 	*fclose(w/)
 **
@@ -153,6 +193,50 @@ time_decr(L4, L5, c, s/)
 	*cypher(L2, L3, L4, L5, r, w, x, c/e)
 	*fclose(r/)
 	*fclose(w/)
+**
+
+
+switchValAnalysePrep(/)
+	*** 134217728=s *** 512 mb
+	*** 67108864=s *** 256 mb
+	*** 33554432=s *** 128 mb
+	*** 8388608=s *** для текста 10 мб
+	*** 4194304=s *** для текста 5 мб
+	*** 1048576=s
+	*** 838861=s *** для текста 1 мб
+	*** 524288=s *** 2 mb infinite loop
+	
+	
+	C68B8B7Eh=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s/)
+	*** 346b1633h=X=u *OxHprintf(u/) /'\n'>C  *switchValAnalyse(s/)
+	*** ed1b14e5h=X=u *OxHprintf(u/) /'\n'>C  *switchValAnalyse(s/)
+	*** 4d12f02fh=X=u *OxHprintf(u/) /'\n'>C  *switchValAnalyse(s/)
+	*** 4f0ae47bh=X=u *OxHprintf(u/) /'\n'>C  *switchValAnalyse(s/)
+	*** c40bb8cdh=X=u *OxHprintf(u/) /'\n'>C  *switchValAnalyse(s/)
+	*** bf7c0d35h=X=u *OxHprintf(u/) /'\n'>C  *switchValAnalyse(s/)
+	*** 8b124e58h=X=u *OxHprintf(u/) /'\n'>C  *switchValAnalyse(s/)
+	*** bee692ach=X=u *OxHprintf(u/) /'\n'>C  *switchValAnalyse(s/)
+	*** 46d1bbc0h=X=u *OxHprintf(u/) /'\n'>C  *switchValAnalyse(s/)
+	
+**
+
+
+
+switchValAnalyse(s/)
+	s+5=q
+	@+L1(q)
+	@+L2(q)
+	*** /!\ возможно ли, что Il>5+3 выйдет за границы 32ух бит?
+	*BFfindVarCount(s/l) Il>5+3=q *** /'l = '>C *printf(l/) /'\n'>C
+	@+L3(q)
+	*genAutomat(s, l/L2, L3, x, e)
+	Q2=Q1
+	*everyFloydsMethod(L2, 0, Q2/L1)
+	/'Q1 = '>C *printf(Q1/) /'\n'>C
+	*searchMaxMinAvg(L1/k, v, l)
+	/'max = '>C *printf(k/) /'\n'>C
+	/'min = '>C *printf(v/) /'\n'>C
+	*** /'something = '>C *printf(l/) /'\n'>C
 **
 
 
@@ -535,12 +619,15 @@ encrPrep(L4, L5, c, s/)
 	
 	*** Теперь надо считывать начальное состояние регистра сдвига SEED
 	OQ1 @'text.txt'>F1 *fopen(F1, 0/r)
-	OQ1 @'crypt.txt'>F1 *fopen(F1, 1/w)
+	*** OQ1 @'crypt.txt'>F1 *fopen(F1, 1/w)
 	*** /'r = '>C *printf(r/) /'\n'>C
 	*** /'w = '>C *printf(w/) /'\n'>C
 	
 	*** X>16;2000=k *** ключ [key]
 	*** возможные состояния [states]
+	*** 524288=s		*** for 2 mb
+	*** 33554432=s		*** for 128 mb
+	*** 67108864=s		*** for 256 mb
 	*** 134217728=s		*** for 512 Mb
 	*** 268435456=s		*** for 1 Gb
 	*** 335544320=s		*** for 1,256
@@ -568,16 +655,18 @@ encrPrep(L4, L5, c, s/)
 	/'weight before = '>C *bv_weight(L6/t) *printf(t/) /'\n'>C
 	*** /'k = '>C *printf(k/) /'\n'>C
 	
-	*genAutomat(s, l/L2, L3, x, e)
+	T=u *genAutomat(s, l/L2, L3, x, e) T-u=u
+	/'genAutomat time = '>C *printf(u/) /'\n'>C
 	Q2+2=t
 	@+L7(t)
 	*** *everyFloydsMethodWPrint(L2, 1, 16/L7) /'\n'>C
-	*cypher_wbv(L2, L3, L4, L5, L6, r, w, x, c/L6, e)
+	T=u *cypher_wbv(L2, L3, L4, L5, L6, r, w, x, c/L6, e) T-u=u
+	/'cypher_wbv time = '>C *printf(u/) /'\n'>C
 	*** *bv_printOnesPlaces(L6/) /'\n'>C
 	*** *bv_print(L6/) /'\n'>C
 	/'weight = '>C *bv_weight(L6/t) *printf(t/) /'\n'>C
 	*fclose(r/)
-	*fclose(w/)
+	*** *fclose(w/)
 **
 
 
@@ -597,6 +686,8 @@ decrPrep(L4, L5, c, s/)
 	*** /'w = '>C *printf(w/) /'\n'>C
 	
 	*** возможные состояния [states]
+	*** 33554432=s		*** for 128 mb
+	*** 67108864=s		*** for 256 mb
 	*** 134217728=s		*** for 512 Mb
 	*** 268435456=s		*** for 1 Gb
 	*** 335544320=s		*** for 1,256
@@ -653,15 +744,15 @@ cypher(L1, L2, L5, L6, r, w, x, s/e)
 	*** /'s = '>C *printf(s/) /'\n'>C
 	2=a 3=c 5=m *** 3=s
 	P1
-		*** /'		x = '>C *printf(x/) /'\n'>C
-		*** *lcg(a, s, c, m/s) *** /'s = '>C *printf(s/) /'\n'>C
-		*genKeyStream(x, L1, L2, L5, L6, Q3, s, l/F3, L5, x, s, l, e)
 		OQ4 *freadf(r, F4, 0, Q3/k)
 		*** /'k = '>C *printf(k/) /' '>C
 		?(k<1)2 k=Q4
 		Q4=Q3
-		*xorF(F3, F4/F4) *** F3^F4=F4
-		*fwritef(w, F4, 0, Q4/k)
+		*genKeyStream(x, L1, L2, L5, L6, Q3, s, l/F3, L5, x, s, l, e)
+		*** /'		x = '>C *printf(x/) /'\n'>C
+		*** *lcg(a, s, c, m/s) *** /'s = '>C *printf(s/) /'\n'>C
+		*** *xorF(F3, F4/F4) *** F3^F4=F4
+		*** *fwritef(w, F4, 0, Q4/k)
 		*** /'k = '>C *printf(k/) /'\n'>C
 		?=1
 	P2
@@ -686,14 +777,14 @@ cypher_wbv(L1, L2, L5, L6, L7, r, w, x, s/L7, e)
 	1000=Q3=Q4
 	*** /'s = '>C *printf(s/) /'\n'>C
 	P1
-		*** /'		x = '>C *printf(x/) /'\n'>C
-		*genKeyStream_wbv(x, L1, L2, L5, L6, L7, Q3, s, l/F3, L5, L7, x, s, l, e)
 		OQ4 *freadf(r, F4, 0, Q3/k)
 		*** /'k = '>C *printf(k/) /' '>C
 		?(k<1)2 k=Q4
 		Q4=Q3
-		*xorF(F3, F4/F4) *** F3^F4=F4
-		*fwritef(w, F4, 0, Q4/k)
+		*genKeyStream_wbv(x, L1, L2, L5, L6, L7, Q3, s, l/F3, L5, L7, x, s, l, e)
+		*** /'		x = '>C *printf(x/) /'\n'>C
+		*** *xorF(F3, F4/F4) *** F3^F4=F4
+		*** *fwritef(w, F4, 0, Q4/k)
 		*** /'k = '>C *printf(k/) /'\n'>C
 		?=1
 	P2
@@ -783,7 +874,7 @@ genKeyStream(x, L1, L2, L4, L5, n, s, l/F3, L4, x, s, l, e)
 	P1 ?(i>w)4 Oj=F3i
 	P2 ?(j>7)3
 		Dl *** /'l = '>C *printf(l/) /'\n'>C
-		?(l<q)93 *doLFSR(L4, L5/L4, b) Ol L4.0;Q1=x *** no eto ne tochno!!!!
+		?(l<q)93 *doLFSR(L4, L5/L4, b) Ol L4.0;Q1=x *** no eto ne tochno L4.0&2^y=x
 		*** /'LFSR done\n'>C
 		*** /'L4.0 = '>C *Hprintf(L4.0/) /'\n'>C
 	P93
@@ -818,7 +909,7 @@ genKeyStream_wbv(x, L1, L2, L4, L5, L6, n, s, l/F3, L4, L6, x, s, l, e)
 	P1 ?(i>w)4 Oj=F3i
 	P2 ?(j>7)3
 		Dl
-		?(l<q)93 *doLFSR(L4, L5/L4, b) Ol L4.0;Q1=x *** no eto ne tochno!!!!
+		?(l<q)93 *doLFSR(L4, L5/L4, b) Ol L4.0;Q1=x *** no eto ne tochno L4.0&2^y=x
 		*** /'l = '>C *printf(l/) /'\n'>C
 		*** /'s = '>C *printf(s/) /'\n'>C
 		*** *lcg(a, s, c, m/s) s+1=q /'s = '>C *printf(s/) /'\n'>C
@@ -916,14 +1007,18 @@ everyFloydsMethodWPrint(L1, b, s/L2)
 
 
 searchMaxMinAvg(L1/k, v, l)
-	Oi
+	?(Q1<1)4
+	Oi Q1=w Yw
 	L1.0=k=v=l *** max, min, avg
 	P1
-		?(L1i<=k)2 L1i=k
+		?(i>w)5 ?(L1i<=k)2 L1i=k
 	P2
 		?(L1i>=v)3 L1i=v
 	P3
-		l+L1i=l Di ?(i<Q1)1 l/Q1=l
+		l+L1i=l Di ?=1 *** l/Q1=l
+	P4
+		/'searchMaxMinAvg: ERROR: Q1 equals zero\n'>C
+	P5
 **
 
 
@@ -941,7 +1036,22 @@ printShiftReg(L1/)
 **
 
 
+*** LFSR Галуа
+*** L1 - регистр сдвига
+*** L2 - полином
 doLFSR(L1, L2/L1, b)
+	?(Q1=0)2
+	L1.0&1=b L1>1=L1 ?(b=0)3
+	L1^L2=L1 ?=3
+	P2 /'doLFSR: ERROR: Q1 equals 0\n'>C
+	P3
+**
+
+
+*** LFSR Фибоначи
+*** L1 - регистр сдвига
+*** L2 - полином
+doSlowLFSR(L1, L2/L1, b)
 	Q1+5=k
 	@+L3(k)
 	@+F4(100)
