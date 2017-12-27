@@ -20,7 +20,9 @@ check_period_and_time(/)
 	1=Q1=Q2=Q4=L4.0
 	*** 200004E1h=L2.0
 	*** 3fffffffh=L1.0=s
-	80000A92h=L2.0
+	*** 80000A92h=L2.0
+	*** ffffffffh=L1.0=s
+	80200003h=L2.0
 	ffffffffh=L1.0=s
 	ffffffffh=m
 	

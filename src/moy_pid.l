@@ -54,7 +54,15 @@ main(/)
 	*** *main_for_time(/)
 	*** *main_encr_decr(/)
 	*** *lfsr_test(/)
-	*switchValAnalysePrep(/)
+	*** *switchValAnalysePrep(/)
+	*** *experiment_time_5mb(/) /'\n'>C
+	*** *experiment_time_10mb(/) /'\n'>C
+	*experiment_time_5mb_10times(/)
+	*experiment_time_10mb_10times(/)
+	*** *experiment_5mb(/) /'\n'>C
+	*** *experiment_10mb(/) /'\n'>C
+	*** *switchValAnalysePrep_5mb(/)
+	*** *switchValAnalysePrep_10mb(/)
 **
 
 
@@ -63,6 +71,7 @@ main(/)
 main_encr_decr(/)
 	@+L1(5)
 	@+L2(5)
+	@+F3(100)
 			*** полиномы и состояния регистра
 	*** 1=Q1=Q2 C3h=L2.0 ffh=L1.0
 	*** 1=Q1=Q2 822Bh=L2.0 ffffh=L1.0
@@ -91,11 +100,10 @@ main_encr_decr(/)
 	*** o=X
 	
 	
-	*** C68B8B7Eh=X  *** Для отладки. Убрать
-	346b1633h=X
-	/'Encrypt\n'>C ffffffffh=L1.0 *encrPrep(L1, L2, c, s/)
+	C68B8B7Eh=X  *** Для отладки. Убрать
+	/'Encrypt\n'>C OQ3 @'text.txt'>F3 ffffffffh=L1.0 *encrPrep(F3, L1, L2, c, s/)
 	C68B8B7Eh=X *** Для отладки. Убрать
-	*** /'Decrypt\n'>C ffffffffh=L1.0 *decrPrep(L1, L2, c, s/)
+	/'Decrypt\n'>C ffffffffh=L1.0 *decrPrep(L1, L2, c, s/)
 	*** *tt(/)
 	*** *testMaxL(/)
 	*** *submain2(/)
@@ -109,20 +117,21 @@ main_encr_decr(/)
 main_for_time(/)
 	@+L1(5)
 	@+L2(5)
+	@+F3(100)
 			*** полиномы и состояния регистра
 	*** 1=Q1=Q2 C3h=L2.0 ffh=L1.0
 	*** 1=Q1=Q2 822Bh=L2.0 ffffh=L1.0
-	*** 1=Q1=Q2 80200003h=L2.0 ffffffffh=L1.0
+	1=Q1=Q2 80200003h=L2.0 ffffffffh=L1.0
 	*** 1=Q1=Q2 a3000000h=L2.0 ffffffffh=L1.0
-	2=Q1=Q2 80000000h=L2.1 00001324h=L2.0 ffffffffh=L1.0=L1.1
+	*** 2=Q1=Q2 80000000h=L2.1 00001324h=L2.0 ffffffffh=L1.0=L1.1
 			*** счётчик для смены текущего состояния автомата
-	100=c
+	5=c
 			*** Число состояний автомата
 	*** 134217728=s *** 512 mb
 	*** 67108864=s *** 256 mb
 	*** 33554432=s *** 128 mb
-	*** 8388608=s *** для текста 10 мб
-	4194304=s *** для текста 5 мб
+	8388608=s *** для текста 10 мб
+	*** 4194304=s *** для текста 5 мб
 	*** 838861=s *** для текста 1 мб
 	*** 524288=s *** 2 mb
 	*** 1048576=s
@@ -131,7 +140,7 @@ main_for_time(/)
 	
 	*** C68B8B7Eh=X T=t *time_automatgen(s/) T-t=t *printf(t/)
 	*** /'Encrypt\n'>C
-	C68B8B7Eh=X *time_encr(L1, L2, c, s/)
+	OQ3 @'text10.txt'>F3 C68B8B7Eh=X *time_encr(F3, L1, L2, c, s/)
 	*** /'Decrypt\n'>C
 	*** C68B8B7Eh=X *time_decr(L1, L2, c, s/)
 **
@@ -142,12 +151,303 @@ main_for_time(/)
 ***************************		Тесты		***************************
 ***********************************************************************
 
+
+************************************
+**** Эксперименты с автоматами *****
+************************************
+
+experiment_time_5mb_10times(/)
+	@+L1(5)
+	@+L2(5)
+	@+F3(100)
+	/'experiment_time_5mb\n'>C
+			*** полиномы и состояния регистра
+	*** 1=Q1=Q2 C3h=L2.0 ffh=L1.0
+	*** 1=Q1=Q2 822Bh=L2.0 ffffh=L1.0
+	1=Q1=Q2 80200003h=L2.0 ffffffffh=L1.0
+	*** 1=Q1=Q2 a3000000h=L2.0 ffffffffh=L1.0
+	*** 2=Q1=Q2 80000000h=L2.1 00001324h=L2.0 ffffffffh=L1.0=L1.1
+			*** счётчик для смены текущего состояния автомата
+	5=c
+			*** Число состояний автомата
+	4194304=s *** для текста 5 мб
+	/'Total states: '>C *printf(s/) /'\n'>C
+	/'Switch value: '>C *printf(c/) /'\n'>C
+	OQ3 @'text.txt'>F3
+	
+	C68B8B7Eh=u *OxHprintf(u/) /'\n'>C Oi
+	P1
+		u=X *time_encr(F3, L1, L2, c, s/) Di ?(i<10)1
+	346b1633h=u *OxHprintf(u/) /'\n'>C Oi
+	P2
+		u=X *time_encr(F3, L1, L2, c, s/) Di ?(i<10)2
+	ed1b14e5h=u *OxHprintf(u/) /'\n'>C Oi
+	P3
+		u=X *time_encr(F3, L1, L2, c, s/) Di ?(i<10)3
+	4d12f02fh=u *OxHprintf(u/) /'\n'>C Oi
+	P4
+		u=X *time_encr(F3, L1, L2, c, s/) Di ?(i<10)4
+	4f0ae47bh=u *OxHprintf(u/) /'\n'>C Oi
+	P5
+		u=X *time_encr(F3, L1, L2, c, s/) Di ?(i<10)5
+	c40bb8cdh=u *OxHprintf(u/) /'\n'>C Oi
+	P6
+		u=X *time_encr(F3, L1, L2, c, s/) Di ?(i<10)6
+	bf7c0d35h=u *OxHprintf(u/) /'\n'>C Oi
+	P7
+		u=X *time_encr(F3, L1, L2, c, s/) Di ?(i<10)7
+	8b124e58h=u *OxHprintf(u/) /'\n'>C Oi
+	P8
+		u=X *time_encr(F3, L1, L2, c, s/) Di ?(i<10)8
+	bee692ach=u *OxHprintf(u/) /'\n'>C Oi
+	P9
+		u=X *time_encr(F3, L1, L2, c, s/) Di ?(i<10)9
+	46d1bbc0h=u *OxHprintf(u/) /'\n'>C Oi
+	P10
+		u=X *time_encr(F3, L1, L2, c, s/) Di ?(i<10)10
+**
+
+
+experiment_time_10mb_10times(/)
+	@+L1(5)
+	@+L2(5)
+	@+F3(100)
+	/'experiment_time_10mb\n'>C
+			*** полиномы и состояния регистра
+	*** 1=Q1=Q2 C3h=L2.0 ffh=L1.0
+	*** 1=Q1=Q2 822Bh=L2.0 ffffh=L1.0
+	1=Q1=Q2 80200003h=L2.0 ffffffffh=L1.0
+	*** 1=Q1=Q2 a3000000h=L2.0 ffffffffh=L1.0
+	*** 2=Q1=Q2 80000000h=L2.1 00001324h=L2.0 ffffffffh=L1.0=L1.1
+			*** счётчик для смены текущего состояния автомата
+	5=c
+			*** Число состояний автомата
+	8388608=s *** для текста 10 мб
+	/'Total states: '>C *printf(s/) /'\n'>C
+	/'Switch value: '>C *printf(c/) /'\n'>C
+	OQ3 @'text.txt'>F3
+	
+	C68B8B7Eh=u *OxHprintf(u/) /'\n'>C Oi
+	P1
+		u=X *time_encr(F3, L1, L2, c, s/) Di ?(i<10)1
+	346b1633h=u *OxHprintf(u/) /'\n'>C Oi
+	P2
+		u=X *time_encr(F3, L1, L2, c, s/) Di ?(i<10)2
+	ed1b14e5h=u *OxHprintf(u/) /'\n'>C Oi
+	P3
+		u=X *time_encr(F3, L1, L2, c, s/) Di ?(i<10)3
+	4d12f02fh=u *OxHprintf(u/) /'\n'>C Oi
+	P4
+		u=X *time_encr(F3, L1, L2, c, s/) Di ?(i<10)4
+	4f0ae47bh=u *OxHprintf(u/) /'\n'>C Oi
+	P5
+		u=X *time_encr(F3, L1, L2, c, s/) Di ?(i<10)5
+	c40bb8cdh=u *OxHprintf(u/) /'\n'>C Oi
+	P6
+		u=X *time_encr(F3, L1, L2, c, s/) Di ?(i<10)6
+	bf7c0d35h=u *OxHprintf(u/) /'\n'>C Oi
+	P7
+		u=X *time_encr(F3, L1, L2, c, s/) Di ?(i<10)7
+	8b124e58h=u *OxHprintf(u/) /'\n'>C Oi
+	P8
+		u=X *time_encr(F3, L1, L2, c, s/) Di ?(i<10)8
+	bee692ach=u *OxHprintf(u/) /'\n'>C Oi
+	P9
+		u=X *time_encr(F3, L1, L2, c, s/) Di ?(i<10)9
+	46d1bbc0h=u *OxHprintf(u/) /'\n'>C Oi
+	P10
+		u=X *time_encr(F3, L1, L2, c, s/) Di ?(i<10)10
+**
+
+
+experiment_time_5mb(/)
+	@+L1(5)
+	@+L2(5)
+	@+F3(100)
+	/'experiment_time_5mb\n'>C
+			*** полиномы и состояния регистра
+	*** 1=Q1=Q2 C3h=L2.0 ffh=L1.0
+	*** 1=Q1=Q2 822Bh=L2.0 ffffh=L1.0
+	1=Q1=Q2 80200003h=L2.0 ffffffffh=L1.0
+	*** 1=Q1=Q2 a3000000h=L2.0 ffffffffh=L1.0
+	*** 2=Q1=Q2 80000000h=L2.1 00001324h=L2.0 ffffffffh=L1.0=L1.1
+			*** счётчик для смены текущего состояния автомата
+	5=c
+			*** Число состояний автомата
+	4194304=s *** для текста 5 мб
+	/'Total states: '>C *printf(s/) /'\n'>C
+	/'Switch value: '>C *printf(c/) /'\n'>C
+	OQ3 @'text.txt'>F3
+	C68B8B7Eh=X=u *OxHprintf(u/) /'\n'>C *time_encr(F3, L1, L2, c, s/)
+	346b1633h=X=u *OxHprintf(u/) /'\n'>C *time_encr(F3, L1, L2, c, s/)
+	ed1b14e5h=X=u *OxHprintf(u/) /'\n'>C *time_encr(F3, L1, L2, c, s/)
+	4d12f02fh=X=u *OxHprintf(u/) /'\n'>C *time_encr(F3, L1, L2, c, s/)
+	4f0ae47bh=X=u *OxHprintf(u/) /'\n'>C *time_encr(F3, L1, L2, c, s/)
+	c40bb8cdh=X=u *OxHprintf(u/) /'\n'>C *time_encr(F3, L1, L2, c, s/)
+	bf7c0d35h=X=u *OxHprintf(u/) /'\n'>C *time_encr(F3, L1, L2, c, s/)
+	8b124e58h=X=u *OxHprintf(u/) /'\n'>C *time_encr(F3, L1, L2, c, s/)
+	bee692ach=X=u *OxHprintf(u/) /'\n'>C *time_encr(F3, L1, L2, c, s/)
+	46d1bbc0h=X=u *OxHprintf(u/) /'\n'>C *time_encr(F3, L1, L2, c, s/)
+**
+
+
+experiment_time_10mb(/)
+	@+L1(5)
+	@+L2(5)
+	@+F3(100)
+	/'experiment_time_10mb\n'>C
+			*** полиномы и состояния регистра
+	*** 1=Q1=Q2 C3h=L2.0 ffh=L1.0
+	*** 1=Q1=Q2 822Bh=L2.0 ffffh=L1.0
+	1=Q1=Q2 80200003h=L2.0 ffffffffh=L1.0
+	*** 1=Q1=Q2 a3000000h=L2.0 ffffffffh=L1.0
+	*** 2=Q1=Q2 80000000h=L2.1 00001324h=L2.0 ffffffffh=L1.0=L1.1
+			*** счётчик для смены текущего состояния автомата
+	5=c
+			*** Число состояний автомата
+	8388608=s *** для текста 10 мб
+	/'Total states: '>C *printf(s/) /'\n'>C
+	/'Switch value: '>C *printf(c/) /'\n'>C
+	OQ3 @'text.txt'>F3
+	C68B8B7Eh=X=u *OxHprintf(u/) /'\n'>C *time_encr(F3, L1, L2, c, s/)
+	346b1633h=X=u *OxHprintf(u/) /'\n'>C *time_encr(F3, L1, L2, c, s/)
+	ed1b14e5h=X=u *OxHprintf(u/) /'\n'>C *time_encr(F3, L1, L2, c, s/)
+	4d12f02fh=X=u *OxHprintf(u/) /'\n'>C *time_encr(F3, L1, L2, c, s/)
+	4f0ae47bh=X=u *OxHprintf(u/) /'\n'>C *time_encr(F3, L1, L2, c, s/)
+	c40bb8cdh=X=u *OxHprintf(u/) /'\n'>C *time_encr(F3, L1, L2, c, s/)
+	bf7c0d35h=X=u *OxHprintf(u/) /'\n'>C *time_encr(F3, L1, L2, c, s/)
+	8b124e58h=X=u *OxHprintf(u/) /'\n'>C *time_encr(F3, L1, L2, c, s/)
+	bee692ach=X=u *OxHprintf(u/) /'\n'>C *time_encr(F3, L1, L2, c, s/)
+	46d1bbc0h=X=u *OxHprintf(u/) /'\n'>C *time_encr(F3, L1, L2, c, s/)
+**
+
+
+experiment_5mb(/)
+	@+L1(5)
+	@+L2(5)
+	@+F3(100)
+	/'experiment_5mb\n'>C
+			*** полиномы и состояния регистра
+	*** 1=Q1=Q2 C3h=L2.0 ffh=L1.0
+	*** 1=Q1=Q2 822Bh=L2.0 ffffh=L1.0
+	1=Q1=Q2 80200003h=L2.0 ffffffffh=L1.0
+	*** 1=Q1=Q2 a3000000h=L2.0 ffffffffh=L1.0
+	*** 2=Q1=Q2 80000000h=L2.1 00001324h=L2.0 ffffffffh=L1.0=L1.1
+			*** счётчик для смены текущего состояния автомата
+	1000=c
+			*** Число состояний автомата
+	4194304=s *** для текста 5 мб
+	/'Total states: '>C *printf(s/) /'\n'>C
+	/'Switch value: '>C *printf(c/) /'\n'>C
+	OQ3 @'text.txt'>F3
+	C68B8B7Eh=X=u *OxHprintf(u/) /'\n'>C *encrPrep(F3, L1, L2, c, s/)
+	346b1633h=X=u *OxHprintf(u/) /'\n'>C *encrPrep(F3, L1, L2, c, s/)
+	ed1b14e5h=X=u *OxHprintf(u/) /'\n'>C *encrPrep(F3, L1, L2, c, s/)
+	4d12f02fh=X=u *OxHprintf(u/) /'\n'>C *encrPrep(F3, L1, L2, c, s/)
+	4f0ae47bh=X=u *OxHprintf(u/) /'\n'>C *encrPrep(F3, L1, L2, c, s/)
+	c40bb8cdh=X=u *OxHprintf(u/) /'\n'>C *encrPrep(F3, L1, L2, c, s/)
+	bf7c0d35h=X=u *OxHprintf(u/) /'\n'>C *encrPrep(F3, L1, L2, c, s/)
+	8b124e58h=X=u *OxHprintf(u/) /'\n'>C *encrPrep(F3, L1, L2, c, s/)
+	bee692ach=X=u *OxHprintf(u/) /'\n'>C *encrPrep(F3, L1, L2, c, s/)
+	46d1bbc0h=X=u *OxHprintf(u/) /'\n'>C *encrPrep(F3, L1, L2, c, s/)
+**
+
+
+experiment_10mb(/)
+	@+L1(5)
+	@+L2(5)
+	@+F3(100)
+	/'experiment_10mb\n'>C
+			*** полиномы и состояния регистра
+	*** 1=Q1=Q2 C3h=L2.0 ffh=L1.0
+	*** 1=Q1=Q2 822Bh=L2.0 ffffh=L1.0
+	1=Q1=Q2 80200003h=L2.0 ffffffffh=L1.0
+	*** 1=Q1=Q2 a3000000h=L2.0 ffffffffh=L1.0
+	*** 2=Q1=Q2 80000000h=L2.1 00001324h=L2.0 ffffffffh=L1.0=L1.1
+			*** счётчик для смены текущего состояния автомата
+	1000=c
+			*** Число состояний автомата
+	8388608=s *** для текста 10 мб
+	/'Total states: '>C *printf(s/) /'\n'>C
+	/'Switch value: '>C *printf(c/) /'\n'>C
+	OQ3 @'text10.txt'>F3
+	C68B8B7Eh=X=u *OxHprintf(u/) /'\n'>C *encrPrep(F3, L1, L2, c, s/)
+	346b1633h=X=u *OxHprintf(u/) /'\n'>C *encrPrep(F3, L1, L2, c, s/)
+	ed1b14e5h=X=u *OxHprintf(u/) /'\n'>C *encrPrep(F3, L1, L2, c, s/)
+	4d12f02fh=X=u *OxHprintf(u/) /'\n'>C *encrPrep(F3, L1, L2, c, s/)
+	4f0ae47bh=X=u *OxHprintf(u/) /'\n'>C *encrPrep(F3, L1, L2, c, s/)
+	c40bb8cdh=X=u *OxHprintf(u/) /'\n'>C *encrPrep(F3, L1, L2, c, s/)
+	bf7c0d35h=X=u *OxHprintf(u/) /'\n'>C *encrPrep(F3, L1, L2, c, s/)
+	8b124e58h=X=u *OxHprintf(u/) /'\n'>C *encrPrep(F3, L1, L2, c, s/)
+	bee692ach=X=u *OxHprintf(u/) /'\n'>C *encrPrep(F3, L1, L2, c, s/)
+	46d1bbc0h=X=u *OxHprintf(u/) /'\n'>C *encrPrep(F3, L1, L2, c, s/)
+**
+
+
+switchValAnalysePrep_5mb(/)
+	/'switchValAnalyse_5mb\n'>C
+	
+	4194304=s *** для текста 5 мб
+	*** 524288=s *** 2 mb infinite loop
+	
+	C68B8B7Eh=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s/)
+	346b1633h=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s/)
+	ed1b14e5h=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s/)
+	4d12f02fh=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s/)
+	4f0ae47bh=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s/)
+	c40bb8cdh=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s/)
+	bf7c0d35h=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s/)
+	8b124e58h=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s/)
+	bee692ach=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s/)
+	46d1bbc0h=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s/)
+**
+
+
+switchValAnalysePrep_10mb(/)
+	/'switchValAnalyse_10mb\n'>C
+	
+	8388608=s *** для текста 10 мб
+	*** 524288=s *** 2 mb infinite loop
+	
+	C68B8B7Eh=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s/)
+	346b1633h=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s/)
+	ed1b14e5h=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s/)
+	4d12f02fh=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s/)
+	4f0ae47bh=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s/)
+	c40bb8cdh=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s/)
+	bf7c0d35h=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s/)
+	8b124e58h=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s/)
+	bee692ach=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s/)
+	46d1bbc0h=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s/)
+**
+
+
+switchValAnalyse(s/)
+	s+5=q
+	@+L1(q)
+	@+L2(q)
+	*** /!\ возможно ли, что Il>5+3 выйдет за границы 32ух бит?
+	*BFfindVarCount(s/l) Il>5+3=q *** /'l = '>C *printf(l/) /'\n'>C
+	@+L3(q)
+	*genAutomat(s, l/L2, L3, x, e)
+	Q2=Q1
+	*everyFloydsMethod(L2, 0, Q2/L1)
+	/'Q1 = '>C *printf(Q1/) /'\n'>C
+	*searchMaxMinAvg(L1/k, v, l)
+	/'max = '>C *printf(k/) /'\n'>C
+	/'min = '>C *printf(v/) /'\n'>C
+	*** /'something = '>C *printf(l/) /'\n'>C
+**
+
+
+
 *** /' = '>C *HprintfBN(/) /'\n'>C
 *** /' = '>C *printf(/) /'\n'>C
 
 ************************************
 *** Функции для засекания времени **
 ************************************
+
 time_automatgen(s/)
 	s+5=q
 	@+L2(q)
@@ -158,22 +458,23 @@ time_automatgen(s/)
 **
 
 
-time_encr(L4, L5, c, s/)
-	@+F1(100)
-	
+time_encr(F1, L4, L5, c, s/)
+	*** @+F1(100)
+	*** /F1>C /'\n'>C /'Total states: '>C *printf(s/) /'\n'>C /'Switch value: '>C *printf(c/) /'\n'>C
 	*** Теперь надо считывать начальное состояние регистра сдвига SEED
-	OQ1 @'text.txt'>F1 *fopen(F1, 0/r)
-	OQ1 @'crypt.txt'>F1 *fopen(F1, 1/w)
+	*** OQ1 @'text.txt'>F1
+	*fopen(F1, 0/r)
+	*** OQ1 @'crypt.txt'>F1 *fopen(F1, 1/w)
 	*** /'r = '>C *printf(r/) /'\n'>C
 	*** /'w = '>C *printf(w/) /'\n'>C
 	s+5=q
 	@+L2(q)
 	*BFfindVarCount(s/l) Il>5+3=q
 	@+L3(q)
-	T=t *genAutomat(s, l/L2, L3, x, e) T-t=t *printf(t/) /'\n'>C
-	T=t *cypher(L2, L3, L4, L5, r, w, x, c/e) T-t=t *printf(t/) /'\n'>C
+	T=t *genAutomat(s, l/L2, L3, x, e) T-t=t /'genAutomat time = '>C *printf(t/) /'\n'>C
+	T=t *cypher(L2, L3, L4, L5, r, w, x, c/e) T-t=t /'cypher time = '>C *printf(t/) /'\n'>C
 	*fclose(r/)
-	*fclose(w/)
+	*** *fclose(w/)
 **
 
 
@@ -193,50 +494,6 @@ time_decr(L4, L5, c, s/)
 	*cypher(L2, L3, L4, L5, r, w, x, c/e)
 	*fclose(r/)
 	*fclose(w/)
-**
-
-
-switchValAnalysePrep(/)
-	*** 134217728=s *** 512 mb
-	*** 67108864=s *** 256 mb
-	*** 33554432=s *** 128 mb
-	*** 8388608=s *** для текста 10 мб
-	*** 4194304=s *** для текста 5 мб
-	*** 1048576=s
-	*** 838861=s *** для текста 1 мб
-	*** 524288=s *** 2 mb infinite loop
-	
-	
-	C68B8B7Eh=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s/)
-	*** 346b1633h=X=u *OxHprintf(u/) /'\n'>C  *switchValAnalyse(s/)
-	*** ed1b14e5h=X=u *OxHprintf(u/) /'\n'>C  *switchValAnalyse(s/)
-	*** 4d12f02fh=X=u *OxHprintf(u/) /'\n'>C  *switchValAnalyse(s/)
-	*** 4f0ae47bh=X=u *OxHprintf(u/) /'\n'>C  *switchValAnalyse(s/)
-	*** c40bb8cdh=X=u *OxHprintf(u/) /'\n'>C  *switchValAnalyse(s/)
-	*** bf7c0d35h=X=u *OxHprintf(u/) /'\n'>C  *switchValAnalyse(s/)
-	*** 8b124e58h=X=u *OxHprintf(u/) /'\n'>C  *switchValAnalyse(s/)
-	*** bee692ach=X=u *OxHprintf(u/) /'\n'>C  *switchValAnalyse(s/)
-	*** 46d1bbc0h=X=u *OxHprintf(u/) /'\n'>C  *switchValAnalyse(s/)
-	
-**
-
-
-
-switchValAnalyse(s/)
-	s+5=q
-	@+L1(q)
-	@+L2(q)
-	*** /!\ возможно ли, что Il>5+3 выйдет за границы 32ух бит?
-	*BFfindVarCount(s/l) Il>5+3=q *** /'l = '>C *printf(l/) /'\n'>C
-	@+L3(q)
-	*genAutomat(s, l/L2, L3, x, e)
-	Q2=Q1
-	*everyFloydsMethod(L2, 0, Q2/L1)
-	/'Q1 = '>C *printf(Q1/) /'\n'>C
-	*searchMaxMinAvg(L1/k, v, l)
-	/'max = '>C *printf(k/) /'\n'>C
-	/'min = '>C *printf(v/) /'\n'>C
-	*** /'something = '>C *printf(l/) /'\n'>C
 **
 
 
@@ -614,11 +871,12 @@ bv_weight(L1/w)
 *** L6 - булев вектор для проверки посещённых состояний автомата
 *** c - счётчик для смены текущего состояния автомата [switch]
 *** s - количество состояний
-encrPrep(L4, L5, c, s/)
-	@+F1(100)
-	
+encrPrep(F1, L4, L5, c, s/)
+	*** @+F1(100)
+	*** /F1>C /'\n'>C /'Total states: '>C *printf(s/) /'\n'>C /'Switch value: '>C *printf(c/) /'\n'>C
 	*** Теперь надо считывать начальное состояние регистра сдвига SEED
-	OQ1 @'text.txt'>F1 *fopen(F1, 0/r)
+	*** OQ1 @'text.txt'>F1
+	*fopen(F1, 0/r)
 	*** OQ1 @'crypt.txt'>F1 *fopen(F1, 1/w)
 	*** /'r = '>C *printf(r/) /'\n'>C
 	*** /'w = '>C *printf(w/) /'\n'>C
@@ -655,13 +913,13 @@ encrPrep(L4, L5, c, s/)
 	/'weight before = '>C *bv_weight(L6/t) *printf(t/) /'\n'>C
 	*** /'k = '>C *printf(k/) /'\n'>C
 	
-	T=u *genAutomat(s, l/L2, L3, x, e) T-u=u
-	/'genAutomat time = '>C *printf(u/) /'\n'>C
+	*genAutomat(s, l/L2, L3, x, e)
 	Q2+2=t
 	@+L7(t)
-	*** *everyFloydsMethodWPrint(L2, 1, 16/L7) /'\n'>C
-	T=u *cypher_wbv(L2, L3, L4, L5, L6, r, w, x, c/L6, e) T-u=u
-	/'cypher_wbv time = '>C *printf(u/) /'\n'>C
+	Q2=Q7
+	*** *everyFloydsMethod(L2, 0, Q2/L7) /'\n'>C
+	*** *searchMaxMinAvg(L7/o, p, r)
+	*cypher_wbv(L2, L3, L4, L5, L6, r, w, x, c/L6, e)
 	*** *bv_printOnesPlaces(L6/) /'\n'>C
 	*** *bv_print(L6/) /'\n'>C
 	/'weight = '>C *bv_weight(L6/t) *printf(t/) /'\n'>C
