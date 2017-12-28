@@ -57,12 +57,12 @@ main(/)
 	*** *switchValAnalysePrep(/)
 	*** *experiment_time_5mb(/) /'\n'>C
 	*** *experiment_time_10mb(/) /'\n'>C
-	*experiment_time_5mb_10times(/)
-	*experiment_time_10mb_10times(/)
+	*** *experiment_time_5mb_10times(/)
+	*** *experiment_time_10mb_10times(/)
 	*** *experiment_5mb(/) /'\n'>C
 	*** *experiment_10mb(/) /'\n'>C
-	*** *switchValAnalysePrep_5mb(/)
-	*** *switchValAnalysePrep_10mb(/)
+	*switchValAnalysePrep_5mb(/)
+	*switchValAnalysePrep_10mb(/)
 **
 
 
@@ -387,42 +387,46 @@ experiment_10mb(/)
 switchValAnalysePrep_5mb(/)
 	/'switchValAnalyse_5mb\n'>C
 	
-	4194304=s *** для текста 5 мб
+	4194303=s *** для текста 5 мб
 	*** 524288=s *** 2 mb infinite loop
+	5=m
 	
-	C68B8B7Eh=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s/)
-	346b1633h=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s/)
-	ed1b14e5h=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s/)
-	4d12f02fh=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s/)
-	4f0ae47bh=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s/)
-	c40bb8cdh=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s/)
-	bf7c0d35h=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s/)
-	8b124e58h=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s/)
-	bee692ach=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s/)
-	46d1bbc0h=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s/)
+	/'Total states: '>C *printf(s/) /'\n'>C
+	C68B8B7Eh=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s, m/)
+	346b1633h=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s, m/)
+	ed1b14e5h=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s, m/)
+	4d12f02fh=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s, m/)
+	4f0ae47bh=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s, m/)
+	c40bb8cdh=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s, m/)
+	bf7c0d35h=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s, m/)
+	8b124e58h=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s, m/)
+	bee692ach=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s, m/)
+	46d1bbc0h=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s, m/)
 **
 
 
 switchValAnalysePrep_10mb(/)
 	/'switchValAnalyse_10mb\n'>C
 	
-	8388608=s *** для текста 10 мб
+	8388607=s *** для текста 10 мб
 	*** 524288=s *** 2 mb infinite loop
+	5=m
 	
-	C68B8B7Eh=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s/)
-	346b1633h=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s/)
-	ed1b14e5h=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s/)
-	4d12f02fh=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s/)
-	4f0ae47bh=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s/)
-	c40bb8cdh=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s/)
-	bf7c0d35h=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s/)
-	8b124e58h=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s/)
-	bee692ach=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s/)
-	46d1bbc0h=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s/)
+	/'Total states: '>C *printf(s/) /'\n'>C
+	C68B8B7Eh=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s, m/)
+	346b1633h=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s, m/)
+	ed1b14e5h=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s, m/)
+	4d12f02fh=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s, m/)
+	4f0ae47bh=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s, m/)
+	c40bb8cdh=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s, m/)
+	bf7c0d35h=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s, m/)
+	8b124e58h=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s, m/)
+	bee692ach=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s, m/)
+	46d1bbc0h=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s, m/)
 **
 
 
-switchValAnalyse(s/)
+switchValAnalyse(s, m/)
 	s+5=q
 	@+L1(q)
 	@+L2(q)
@@ -432,10 +436,11 @@ switchValAnalyse(s/)
 	*genAutomat(s, l/L2, L3, x, e)
 	Q2=Q1
 	*everyFloydsMethod(L2, 0, Q2/L1)
-	/'Q1 = '>C *printf(Q1/) /'\n'>C
-	*searchMaxMinAvg(L1/k, v, l)
+	*** /'Q1 = '>C *printf(Q1/) /'\n'>C
+	*searchMaxMinAvg(L1, m/k, v, l, a)
 	/'max = '>C *printf(k/) /'\n'>C
 	/'min = '>C *printf(v/) /'\n'>C
+	/'less than '>C *printf(m/) /' = '>C *printf(a/) /'\n'>C
 	*** /'something = '>C *printf(l/) /'\n'>C
 **
 
@@ -1264,19 +1269,21 @@ everyFloydsMethodWPrint(L1, b, s/L2)
 **
 
 
-searchMaxMinAvg(L1/k, v, l)
-	?(Q1<1)4
-	Oi Q1=w Yw
+searchMaxMinAvg(L1, m/k, v, l, a)
+	?(Q1<1)5
+	Oi=a Q1=w Yw *** a - количество элементов меньше m
 	L1.0=k=v=l *** max, min, avg
 	P1
-		?(i>w)5 ?(L1i<=k)2 L1i=k
+		?(i>w)6 ?(L1i<=k)2 L1i=k
 	P2
 		?(L1i>=v)3 L1i=v
 	P3
-		l+L1i=l Di ?=1 *** l/Q1=l
+		?(L1i>m)4 Da
 	P4
-		/'searchMaxMinAvg: ERROR: Q1 equals zero\n'>C
+		l+L1i=l Di ?=1 *** l/Q1=l
 	P5
+		/'searchMaxMinAvg: ERROR: Q1 equals zero\n'>C
+	P6
 **
 
 
