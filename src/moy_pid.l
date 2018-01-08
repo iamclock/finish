@@ -53,6 +53,8 @@
 main(/)
 	*** *main_for_time(/)
 	*** *main_encr_decr(/)
+	*** *test_visited_states(/)
+	*test_diff_visited_states(/)
 	*** *lfsr_test(/)
 	*** *switchValAnalysePrep(/)
 	*** *experiment_time_5mb(/) /'\n'>C
@@ -61,8 +63,8 @@ main(/)
 	*** *experiment_time_10mb_10times(/)
 	*** *experiment_5mb(/) /'\n'>C
 	*** *experiment_10mb(/) /'\n'>C
-	*switchValAnalysePrep_5mb(/)
-	*switchValAnalysePrep_10mb(/)
+	*** *switchValAnalysePrep_5mb(/)
+	*** *switchValAnalysePrep_10mb(/)
 **
 
 
@@ -130,8 +132,8 @@ main_for_time(/)
 	*** 134217728=s *** 512 mb
 	*** 67108864=s *** 256 mb
 	*** 33554432=s *** 128 mb
-	8388608=s *** для текста 10 мб
-	*** 4194304=s *** для текста 5 мб
+	*** 8388608=s *** для текста 10 мб
+	4194304=s *** для текста 5 мб
 	*** 838861=s *** для текста 1 мб
 	*** 524288=s *** 2 mb
 	*** 1048576=s
@@ -139,10 +141,8 @@ main_for_time(/)
 	
 	
 	*** C68B8B7Eh=X T=t *time_automatgen(s/) T-t=t *printf(t/)
-	*** /'Encrypt\n'>C
-	OQ3 @'text10.txt'>F3 C68B8B7Eh=X *time_encr(F3, L1, L2, c, s/)
-	*** /'Decrypt\n'>C
-	*** C68B8B7Eh=X *time_decr(L1, L2, c, s/)
+	/'Encrypt\n'>C OQ3 @'text5.txt'>F3 C68B8B7Eh=X *time_encr(F3, L1, L2, c, s/)
+	/'Decrypt\n'>C ffffffffh=L1.0 C68B8B7Eh=X *time_decr(L1, L2, c, s/)
 **
 
 
@@ -160,7 +160,7 @@ experiment_time_5mb_10times(/)
 	@+L1(5)
 	@+L2(5)
 	@+F3(100)
-	/'experiment_time_5mb\n'>C
+	/'experiment_time_5mb_pid\n'>C
 			*** полиномы и состояния регистра
 	*** 1=Q1=Q2 C3h=L2.0 ffh=L1.0
 	*** 1=Q1=Q2 822Bh=L2.0 ffffh=L1.0
@@ -171,38 +171,38 @@ experiment_time_5mb_10times(/)
 	5=c
 			*** Число состояний автомата
 	4194304=s *** для текста 5 мб
+	OQ3 @'text.txt'>F3
+	/'Text: ' /F3>C /'\n'>C
 	/'Total states: '>C *printf(s/) /'\n'>C
 	/'Switch value: '>C *printf(c/) /'\n'>C
-	OQ3 @'text.txt'>F3
-	
-	C68B8B7Eh=u *OxHprintf(u/) /'\n'>C Oi
+	C68B8B7Eh=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C Oi
 	P1
 		u=X *time_encr(F3, L1, L2, c, s/) Di ?(i<10)1
-	346b1633h=u *OxHprintf(u/) /'\n'>C Oi
+	346b1633h=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C Oi
 	P2
 		u=X *time_encr(F3, L1, L2, c, s/) Di ?(i<10)2
-	ed1b14e5h=u *OxHprintf(u/) /'\n'>C Oi
+	ed1b14e5h=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C Oi
 	P3
 		u=X *time_encr(F3, L1, L2, c, s/) Di ?(i<10)3
-	4d12f02fh=u *OxHprintf(u/) /'\n'>C Oi
+	4d12f02fh=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C Oi
 	P4
 		u=X *time_encr(F3, L1, L2, c, s/) Di ?(i<10)4
-	4f0ae47bh=u *OxHprintf(u/) /'\n'>C Oi
+	4f0ae47bh=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C Oi
 	P5
 		u=X *time_encr(F3, L1, L2, c, s/) Di ?(i<10)5
-	c40bb8cdh=u *OxHprintf(u/) /'\n'>C Oi
+	c40bb8cdh=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C Oi
 	P6
 		u=X *time_encr(F3, L1, L2, c, s/) Di ?(i<10)6
-	bf7c0d35h=u *OxHprintf(u/) /'\n'>C Oi
+	bf7c0d35h=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C Oi
 	P7
 		u=X *time_encr(F3, L1, L2, c, s/) Di ?(i<10)7
-	8b124e58h=u *OxHprintf(u/) /'\n'>C Oi
+	8b124e58h=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C Oi
 	P8
 		u=X *time_encr(F3, L1, L2, c, s/) Di ?(i<10)8
-	bee692ach=u *OxHprintf(u/) /'\n'>C Oi
+	bee692ach=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C Oi
 	P9
 		u=X *time_encr(F3, L1, L2, c, s/) Di ?(i<10)9
-	46d1bbc0h=u *OxHprintf(u/) /'\n'>C Oi
+	46d1bbc0h=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C Oi
 	P10
 		u=X *time_encr(F3, L1, L2, c, s/) Di ?(i<10)10
 **
@@ -212,7 +212,7 @@ experiment_time_10mb_10times(/)
 	@+L1(5)
 	@+L2(5)
 	@+F3(100)
-	/'experiment_time_10mb\n'>C
+	/'experiment_time_10mb_pid\n'>C
 			*** полиномы и состояния регистра
 	*** 1=Q1=Q2 C3h=L2.0 ffh=L1.0
 	*** 1=Q1=Q2 822Bh=L2.0 ffffh=L1.0
@@ -223,38 +223,39 @@ experiment_time_10mb_10times(/)
 	5=c
 			*** Число состояний автомата
 	8388608=s *** для текста 10 мб
+	
+	OQ3 @'text.txt'>F3
+	/'Text: ' /F3>C /'\n'>C
 	/'Total states: '>C *printf(s/) /'\n'>C
 	/'Switch value: '>C *printf(c/) /'\n'>C
-	OQ3 @'text.txt'>F3
-	
-	C68B8B7Eh=u *OxHprintf(u/) /'\n'>C Oi
+	C68B8B7Eh=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C Oi
 	P1
 		u=X *time_encr(F3, L1, L2, c, s/) Di ?(i<10)1
-	346b1633h=u *OxHprintf(u/) /'\n'>C Oi
+	346b1633h=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C Oi
 	P2
 		u=X *time_encr(F3, L1, L2, c, s/) Di ?(i<10)2
-	ed1b14e5h=u *OxHprintf(u/) /'\n'>C Oi
+	ed1b14e5h=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C Oi
 	P3
 		u=X *time_encr(F3, L1, L2, c, s/) Di ?(i<10)3
-	4d12f02fh=u *OxHprintf(u/) /'\n'>C Oi
+	4d12f02fh=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C Oi
 	P4
 		u=X *time_encr(F3, L1, L2, c, s/) Di ?(i<10)4
-	4f0ae47bh=u *OxHprintf(u/) /'\n'>C Oi
+	4f0ae47bh=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C Oi
 	P5
 		u=X *time_encr(F3, L1, L2, c, s/) Di ?(i<10)5
-	c40bb8cdh=u *OxHprintf(u/) /'\n'>C Oi
+	c40bb8cdh=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C Oi
 	P6
 		u=X *time_encr(F3, L1, L2, c, s/) Di ?(i<10)6
-	bf7c0d35h=u *OxHprintf(u/) /'\n'>C Oi
+	bf7c0d35h=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C Oi
 	P7
 		u=X *time_encr(F3, L1, L2, c, s/) Di ?(i<10)7
-	8b124e58h=u *OxHprintf(u/) /'\n'>C Oi
+	8b124e58h=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C Oi
 	P8
 		u=X *time_encr(F3, L1, L2, c, s/) Di ?(i<10)8
-	bee692ach=u *OxHprintf(u/) /'\n'>C Oi
+	bee692ach=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C Oi
 	P9
 		u=X *time_encr(F3, L1, L2, c, s/) Di ?(i<10)9
-	46d1bbc0h=u *OxHprintf(u/) /'\n'>C Oi
+	46d1bbc0h=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C Oi
 	P10
 		u=X *time_encr(F3, L1, L2, c, s/) Di ?(i<10)10
 **
@@ -264,7 +265,7 @@ experiment_time_5mb(/)
 	@+L1(5)
 	@+L2(5)
 	@+F3(100)
-	/'experiment_time_5mb\n'>C
+	/'experiment_time_5mb_pid\n'>C
 			*** полиномы и состояния регистра
 	*** 1=Q1=Q2 C3h=L2.0 ffh=L1.0
 	*** 1=Q1=Q2 822Bh=L2.0 ffffh=L1.0
@@ -275,19 +276,20 @@ experiment_time_5mb(/)
 	5=c
 			*** Число состояний автомата
 	4194304=s *** для текста 5 мб
+	OQ3 @'text.txt'>F3
+	/'Text: ' /F3>C /'\n'>C
 	/'Total states: '>C *printf(s/) /'\n'>C
 	/'Switch value: '>C *printf(c/) /'\n'>C
-	OQ3 @'text.txt'>F3
-	C68B8B7Eh=X=u *OxHprintf(u/) /'\n'>C *time_encr(F3, L1, L2, c, s/)
-	346b1633h=X=u *OxHprintf(u/) /'\n'>C *time_encr(F3, L1, L2, c, s/)
-	ed1b14e5h=X=u *OxHprintf(u/) /'\n'>C *time_encr(F3, L1, L2, c, s/)
-	4d12f02fh=X=u *OxHprintf(u/) /'\n'>C *time_encr(F3, L1, L2, c, s/)
-	4f0ae47bh=X=u *OxHprintf(u/) /'\n'>C *time_encr(F3, L1, L2, c, s/)
-	c40bb8cdh=X=u *OxHprintf(u/) /'\n'>C *time_encr(F3, L1, L2, c, s/)
-	bf7c0d35h=X=u *OxHprintf(u/) /'\n'>C *time_encr(F3, L1, L2, c, s/)
-	8b124e58h=X=u *OxHprintf(u/) /'\n'>C *time_encr(F3, L1, L2, c, s/)
-	bee692ach=X=u *OxHprintf(u/) /'\n'>C *time_encr(F3, L1, L2, c, s/)
-	46d1bbc0h=X=u *OxHprintf(u/) /'\n'>C *time_encr(F3, L1, L2, c, s/)
+	C68B8B7Eh=X=u /'Seed for automat = '>C *OxHprintf(u/) *time_encr(F3, L1, L2, c, s/)
+	346b1633h=X=u /'Seed for automat = '>C *OxHprintf(u/) *time_encr(F3, L1, L2, c, s/)
+	ed1b14e5h=X=u /'Seed for automat = '>C *OxHprintf(u/) *time_encr(F3, L1, L2, c, s/)
+	4d12f02fh=X=u /'Seed for automat = '>C *OxHprintf(u/) *time_encr(F3, L1, L2, c, s/)
+	4f0ae47bh=X=u /'Seed for automat = '>C *OxHprintf(u/) *time_encr(F3, L1, L2, c, s/)
+	c40bb8cdh=X=u /'Seed for automat = '>C *OxHprintf(u/) *time_encr(F3, L1, L2, c, s/)
+	bf7c0d35h=X=u /'Seed for automat = '>C *OxHprintf(u/) *time_encr(F3, L1, L2, c, s/)
+	8b124e58h=X=u /'Seed for automat = '>C *OxHprintf(u/) *time_encr(F3, L1, L2, c, s/)
+	bee692ach=X=u /'Seed for automat = '>C *OxHprintf(u/) *time_encr(F3, L1, L2, c, s/)
+	46d1bbc0h=X=u /'Seed for automat = '>C *OxHprintf(u/) *time_encr(F3, L1, L2, c, s/)
 **
 
 
@@ -295,7 +297,7 @@ experiment_time_10mb(/)
 	@+L1(5)
 	@+L2(5)
 	@+F3(100)
-	/'experiment_time_10mb\n'>C
+	/'experiment_time_10mb_pid\n'>C
 			*** полиномы и состояния регистра
 	*** 1=Q1=Q2 C3h=L2.0 ffh=L1.0
 	*** 1=Q1=Q2 822Bh=L2.0 ffffh=L1.0
@@ -306,19 +308,20 @@ experiment_time_10mb(/)
 	5=c
 			*** Число состояний автомата
 	8388608=s *** для текста 10 мб
+	OQ3 @'text.txt'>F3
+	/'Text: ' /F3>C /'\n'>C
 	/'Total states: '>C *printf(s/) /'\n'>C
 	/'Switch value: '>C *printf(c/) /'\n'>C
-	OQ3 @'text.txt'>F3
-	C68B8B7Eh=X=u *OxHprintf(u/) /'\n'>C *time_encr(F3, L1, L2, c, s/)
-	346b1633h=X=u *OxHprintf(u/) /'\n'>C *time_encr(F3, L1, L2, c, s/)
-	ed1b14e5h=X=u *OxHprintf(u/) /'\n'>C *time_encr(F3, L1, L2, c, s/)
-	4d12f02fh=X=u *OxHprintf(u/) /'\n'>C *time_encr(F3, L1, L2, c, s/)
-	4f0ae47bh=X=u *OxHprintf(u/) /'\n'>C *time_encr(F3, L1, L2, c, s/)
-	c40bb8cdh=X=u *OxHprintf(u/) /'\n'>C *time_encr(F3, L1, L2, c, s/)
-	bf7c0d35h=X=u *OxHprintf(u/) /'\n'>C *time_encr(F3, L1, L2, c, s/)
-	8b124e58h=X=u *OxHprintf(u/) /'\n'>C *time_encr(F3, L1, L2, c, s/)
-	bee692ach=X=u *OxHprintf(u/) /'\n'>C *time_encr(F3, L1, L2, c, s/)
-	46d1bbc0h=X=u *OxHprintf(u/) /'\n'>C *time_encr(F3, L1, L2, c, s/)
+	C68B8B7Eh=X=u /'Seed for automat = '>C *OxHprintf(u/) *time_encr(F3, L1, L2, c, s/)
+	346b1633h=X=u /'Seed for automat = '>C *OxHprintf(u/) *time_encr(F3, L1, L2, c, s/)
+	ed1b14e5h=X=u /'Seed for automat = '>C *OxHprintf(u/) *time_encr(F3, L1, L2, c, s/)
+	4d12f02fh=X=u /'Seed for automat = '>C *OxHprintf(u/) *time_encr(F3, L1, L2, c, s/)
+	4f0ae47bh=X=u /'Seed for automat = '>C *OxHprintf(u/) *time_encr(F3, L1, L2, c, s/)
+	c40bb8cdh=X=u /'Seed for automat = '>C *OxHprintf(u/) *time_encr(F3, L1, L2, c, s/)
+	bf7c0d35h=X=u /'Seed for automat = '>C *OxHprintf(u/) *time_encr(F3, L1, L2, c, s/)
+	8b124e58h=X=u /'Seed for automat = '>C *OxHprintf(u/) *time_encr(F3, L1, L2, c, s/)
+	bee692ach=X=u /'Seed for automat = '>C *OxHprintf(u/) *time_encr(F3, L1, L2, c, s/)
+	46d1bbc0h=X=u /'Seed for automat = '>C *OxHprintf(u/) *time_encr(F3, L1, L2, c, s/)
 **
 
 
@@ -326,7 +329,7 @@ experiment_5mb(/)
 	@+L1(5)
 	@+L2(5)
 	@+F3(100)
-	/'experiment_5mb\n'>C
+	/'experiment_5mb_pid\n'>C
 			*** полиномы и состояния регистра
 	*** 1=Q1=Q2 C3h=L2.0 ffh=L1.0
 	*** 1=Q1=Q2 822Bh=L2.0 ffffh=L1.0
@@ -334,22 +337,23 @@ experiment_5mb(/)
 	*** 1=Q1=Q2 a3000000h=L2.0 ffffffffh=L1.0
 	*** 2=Q1=Q2 80000000h=L2.1 00001324h=L2.0 ffffffffh=L1.0=L1.1
 			*** счётчик для смены текущего состояния автомата
-	1000=c
+	16=c
 			*** Число состояний автомата
 	4194304=s *** для текста 5 мб
+	OQ3 @'text.txt'>F3
+	/'Text: ' /F3>C /'\n'>C
 	/'Total states: '>C *printf(s/) /'\n'>C
 	/'Switch value: '>C *printf(c/) /'\n'>C
-	OQ3 @'text.txt'>F3
-	C68B8B7Eh=X=u *OxHprintf(u/) /'\n'>C *encrPrep(F3, L1, L2, c, s/)
-	346b1633h=X=u *OxHprintf(u/) /'\n'>C *encrPrep(F3, L1, L2, c, s/)
-	ed1b14e5h=X=u *OxHprintf(u/) /'\n'>C *encrPrep(F3, L1, L2, c, s/)
-	4d12f02fh=X=u *OxHprintf(u/) /'\n'>C *encrPrep(F3, L1, L2, c, s/)
-	4f0ae47bh=X=u *OxHprintf(u/) /'\n'>C *encrPrep(F3, L1, L2, c, s/)
-	c40bb8cdh=X=u *OxHprintf(u/) /'\n'>C *encrPrep(F3, L1, L2, c, s/)
-	bf7c0d35h=X=u *OxHprintf(u/) /'\n'>C *encrPrep(F3, L1, L2, c, s/)
-	8b124e58h=X=u *OxHprintf(u/) /'\n'>C *encrPrep(F3, L1, L2, c, s/)
-	bee692ach=X=u *OxHprintf(u/) /'\n'>C *encrPrep(F3, L1, L2, c, s/)
-	46d1bbc0h=X=u *OxHprintf(u/) /'\n'>C *encrPrep(F3, L1, L2, c, s/)
+	C68B8B7Eh=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C *encrPrep(F3, L1, L2, c, s/)
+	346b1633h=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C *encrPrep(F3, L1, L2, c, s/)
+	ed1b14e5h=X=u /'Seed for automat = '>C *OxHprintf(u/) *encrPrep(F3, L1, L2, c, s/)
+	4d12f02fh=X=u /'Seed for automat = '>C *OxHprintf(u/) *encrPrep(F3, L1, L2, c, s/)
+	4f0ae47bh=X=u /'Seed for automat = '>C *OxHprintf(u/) *encrPrep(F3, L1, L2, c, s/)
+	c40bb8cdh=X=u /'Seed for automat = '>C *OxHprintf(u/) *encrPrep(F3, L1, L2, c, s/)
+	bf7c0d35h=X=u /'Seed for automat = '>C *OxHprintf(u/) *encrPrep(F3, L1, L2, c, s/)
+	8b124e58h=X=u /'Seed for automat = '>C *OxHprintf(u/) *encrPrep(F3, L1, L2, c, s/)
+	bee692ach=X=u /'Seed for automat = '>C *OxHprintf(u/) *encrPrep(F3, L1, L2, c, s/)
+	46d1bbc0h=X=u /'Seed for automat = '>C *OxHprintf(u/) *encrPrep(F3, L1, L2, c, s/)
 **
 
 
@@ -357,7 +361,7 @@ experiment_10mb(/)
 	@+L1(5)
 	@+L2(5)
 	@+F3(100)
-	/'experiment_10mb\n'>C
+	/'experiment_10mb_pid\n'>C
 			*** полиномы и состояния регистра
 	*** 1=Q1=Q2 C3h=L2.0 ffh=L1.0
 	*** 1=Q1=Q2 822Bh=L2.0 ffffh=L1.0
@@ -365,64 +369,65 @@ experiment_10mb(/)
 	*** 1=Q1=Q2 a3000000h=L2.0 ffffffffh=L1.0
 	*** 2=Q1=Q2 80000000h=L2.1 00001324h=L2.0 ffffffffh=L1.0=L1.1
 			*** счётчик для смены текущего состояния автомата
-	1000=c
+	16=c
 			*** Число состояний автомата
 	8388608=s *** для текста 10 мб
+	OQ3 @'text.txt'>F3
+	/'Text: ' /F3>C /'\n'>C
 	/'Total states: '>C *printf(s/) /'\n'>C
 	/'Switch value: '>C *printf(c/) /'\n'>C
-	OQ3 @'text10.txt'>F3
-	C68B8B7Eh=X=u *OxHprintf(u/) /'\n'>C *encrPrep(F3, L1, L2, c, s/)
-	346b1633h=X=u *OxHprintf(u/) /'\n'>C *encrPrep(F3, L1, L2, c, s/)
-	ed1b14e5h=X=u *OxHprintf(u/) /'\n'>C *encrPrep(F3, L1, L2, c, s/)
-	4d12f02fh=X=u *OxHprintf(u/) /'\n'>C *encrPrep(F3, L1, L2, c, s/)
-	4f0ae47bh=X=u *OxHprintf(u/) /'\n'>C *encrPrep(F3, L1, L2, c, s/)
-	c40bb8cdh=X=u *OxHprintf(u/) /'\n'>C *encrPrep(F3, L1, L2, c, s/)
-	bf7c0d35h=X=u *OxHprintf(u/) /'\n'>C *encrPrep(F3, L1, L2, c, s/)
-	8b124e58h=X=u *OxHprintf(u/) /'\n'>C *encrPrep(F3, L1, L2, c, s/)
-	bee692ach=X=u *OxHprintf(u/) /'\n'>C *encrPrep(F3, L1, L2, c, s/)
-	46d1bbc0h=X=u *OxHprintf(u/) /'\n'>C *encrPrep(F3, L1, L2, c, s/)
+	C68B8B7Eh=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C *encrPrep(F3, L1, L2, c, s/)
+	346b1633h=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C *encrPrep(F3, L1, L2, c, s/)
+	ed1b14e5h=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C *encrPrep(F3, L1, L2, c, s/)
+	4d12f02fh=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C *encrPrep(F3, L1, L2, c, s/)
+	4f0ae47bh=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C *encrPrep(F3, L1, L2, c, s/)
+	c40bb8cdh=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C *encrPrep(F3, L1, L2, c, s/)
+	bf7c0d35h=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C *encrPrep(F3, L1, L2, c, s/)
+	8b124e58h=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C *encrPrep(F3, L1, L2, c, s/)
+	bee692ach=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C *encrPrep(F3, L1, L2, c, s/)
+	46d1bbc0h=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C *encrPrep(F3, L1, L2, c, s/)
 **
 
 
 switchValAnalysePrep_5mb(/)
-	/'switchValAnalyse_5mb\n'>C
+	/'switchValAnalyse_5mb_pid\n'>C
 	
 	4194303=s *** для текста 5 мб
 	*** 524288=s *** 2 mb infinite loop
 	5=m
 	
 	/'Total states: '>C *printf(s/) /'\n'>C
-	C68B8B7Eh=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s, m/)
-	346b1633h=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s, m/)
-	ed1b14e5h=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s, m/)
-	4d12f02fh=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s, m/)
-	4f0ae47bh=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s, m/)
-	c40bb8cdh=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s, m/)
-	bf7c0d35h=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s, m/)
-	8b124e58h=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s, m/)
-	bee692ach=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s, m/)
-	46d1bbc0h=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s, m/)
+	C68B8B7Eh=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C *switchValAnalyse(s, m/)
+	346b1633h=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C *switchValAnalyse(s, m/)
+	ed1b14e5h=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C *switchValAnalyse(s, m/)
+	4d12f02fh=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C *switchValAnalyse(s, m/)
+	4f0ae47bh=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C *switchValAnalyse(s, m/)
+	c40bb8cdh=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C *switchValAnalyse(s, m/)
+	bf7c0d35h=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C *switchValAnalyse(s, m/)
+	8b124e58h=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C *switchValAnalyse(s, m/)
+	bee692ach=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C *switchValAnalyse(s, m/)
+	46d1bbc0h=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C *switchValAnalyse(s, m/)
 **
 
 
 switchValAnalysePrep_10mb(/)
-	/'switchValAnalyse_10mb\n'>C
+	/'switchValAnalyse_10mb_pid\n'>C
 	
 	8388607=s *** для текста 10 мб
 	*** 524288=s *** 2 mb infinite loop
 	5=m
 	
 	/'Total states: '>C *printf(s/) /'\n'>C
-	C68B8B7Eh=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s, m/)
-	346b1633h=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s, m/)
-	ed1b14e5h=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s, m/)
-	4d12f02fh=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s, m/)
-	4f0ae47bh=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s, m/)
-	c40bb8cdh=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s, m/)
-	bf7c0d35h=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s, m/)
-	8b124e58h=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s, m/)
-	bee692ach=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s, m/)
-	46d1bbc0h=X=u *OxHprintf(u/) /'\n'>C *switchValAnalyse(s, m/)
+	C68B8B7Eh=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C *switchValAnalyse(s, m/)
+	346b1633h=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C *switchValAnalyse(s, m/)
+	ed1b14e5h=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C *switchValAnalyse(s, m/)
+	4d12f02fh=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C *switchValAnalyse(s, m/)
+	4f0ae47bh=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C *switchValAnalyse(s, m/)
+	c40bb8cdh=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C *switchValAnalyse(s, m/)
+	bf7c0d35h=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C *switchValAnalyse(s, m/)
+	8b124e58h=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C *switchValAnalyse(s, m/)
+	bee692ach=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C *switchValAnalyse(s, m/)
+	46d1bbc0h=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C *switchValAnalyse(s, m/)
 **
 
 
@@ -434,10 +439,11 @@ switchValAnalyse(s, m/)
 	*BFfindVarCount(s/l) Il>5+3=q *** /'l = '>C *printf(l/) /'\n'>C
 	@+L3(q)
 	*genAutomat(s, l/L2, L3, x, e)
+	*floydsMethodWPrint(L2, 1, 16/) /'\n'>C
 	Q2=Q1
 	*everyFloydsMethod(L2, 0, Q2/L1)
 	*** /'Q1 = '>C *printf(Q1/) /'\n'>C
-	*searchMaxMinAvg(L1, m/k, v, l, a)
+	*searchMaxMinAvg(L1, o/k, v, l, a)
 	/'max = '>C *printf(k/) /'\n'>C
 	/'min = '>C *printf(v/) /'\n'>C
 	/'less than '>C *printf(m/) /' = '>C *printf(a/) /'\n'>C
@@ -469,7 +475,7 @@ time_encr(F1, L4, L5, c, s/)
 	*** Теперь надо считывать начальное состояние регистра сдвига SEED
 	*** OQ1 @'text.txt'>F1
 	*fopen(F1, 0/r)
-	*** OQ1 @'crypt.txt'>F1 *fopen(F1, 1/w)
+	OQ1 @'crypt.txt'>F1 *fopen(F1, 1/w)
 	*** /'r = '>C *printf(r/) /'\n'>C
 	*** /'w = '>C *printf(w/) /'\n'>C
 	s+5=q
@@ -479,7 +485,7 @@ time_encr(F1, L4, L5, c, s/)
 	T=t *genAutomat(s, l/L2, L3, x, e) T-t=t /'genAutomat time = '>C *printf(t/) /'\n'>C
 	T=t *cypher(L2, L3, L4, L5, r, w, x, c/e) T-t=t /'cypher time = '>C *printf(t/) /'\n'>C
 	*fclose(r/)
-	*** *fclose(w/)
+	*fclose(w/)
 **
 
 
@@ -500,6 +506,75 @@ time_decr(L4, L5, c, s/)
 	*fclose(r/)
 	*fclose(w/)
 **
+
+
+test_visited_states(F3, c, s/)
+	@+L1(5)
+	@+L2(5)
+	*** @+F3(100) *** OQ3 @'text10.txt'>F3
+	/'Test visited states diplom\n'>C
+	
+			*** полиномы и состояния регистра
+	*** 1=Q1=Q2 C3h=L2.0 ffh=L1.0
+	*** 1=Q1=Q2 822Bh=L2.0 ffffh=L1.0
+	1=Q1=Q2 80200003h=L2.0 ffffffffh=L1.0
+	*** 1=Q1=Q2 a3000000h=L2.0 ffffffffh=L1.0
+	*** 2=Q1=Q2 80000000h=L2.1 00001324h=L2.0 ffffffffh=L1.0=L1.1
+			*** счётчик для смены текущего состояния автомата
+	*** 12=c
+			*** Число состояний автомата
+	*** 8388608=s OQ3 @'text10.txt'>F3 *** для текста 10 мб
+	*** 4194304=s OQ3 @'text5.txt'>F3 *** для текста 5 мб
+	/'Text: '>C /F3>C /'\n'>C
+	/'Total states: '>C *printf(s/) /'\n'>C
+	/'Switch value: '>C *printf(c/) /'\n'>C
+	*** убрать первое V (стрелочка)
+	8b124e58h=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C ffffffffh=L1.0 *encrPrep(F3, L1, L2, c, s/)
+	C68B8B7Eh=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C ffffffffh=L1.0 *encrPrep(F3, L1, L2, c, s/)
+	346b1633h=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C ffffffffh=L1.0 *encrPrep(F3, L1, L2, c, s/)
+	ed1b14e5h=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C ffffffffh=L1.0 *encrPrep(F3, L1, L2, c, s/)
+	4d12f02fh=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C ffffffffh=L1.0 *encrPrep(F3, L1, L2, c, s/)
+	4f0ae47bh=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C ffffffffh=L1.0 *encrPrep(F3, L1, L2, c, s/)
+	c40bb8cdh=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C ffffffffh=L1.0 *encrPrep(F3, L1, L2, c, s/)
+	bf7c0d35h=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C ffffffffh=L1.0 *encrPrep(F3, L1, L2, c, s/)
+	8b124e58h=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C ffffffffh=L1.0 *encrPrep(F3, L1, L2, c, s/)
+	bee692ach=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C ffffffffh=L1.0 *encrPrep(F3, L1, L2, c, s/)
+	46d1bbc0h=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C ffffffffh=L1.0 *encrPrep(F3, L1, L2, c, s/)
+**
+
+
+test_diff_visited_states(/)
+	*** *test_visited_states_10mb(/)
+	*test_visited_states_5mb(/)
+**
+
+
+test_visited_states_10mb(/)
+	@+F3(100)
+	OQ3 @'text10.txt'>F3 *** для текста 10 мб
+	*** 8388607=s 12=c *test_visited_states(F3, c, s/)
+	*** 8388608=s 12=c *test_visited_states(F3, c, s/)
+	8388607=s 10=c *test_visited_states(F3, c, s/)
+	8388607=s 100=c *test_visited_states(F3, c, s/)
+	8388607=s 500=c *test_visited_states(F3, c, s/)
+	8388608=s 10=c *test_visited_states(F3, c, s/)
+	8388608=s 100=c *test_visited_states(F3, c, s/)
+	8388608=s 500=c *test_visited_states(F3, c, s/)
+**
+
+test_visited_states_5mb(/)
+	@+F3(100)
+	OQ3 @'text5.txt'>F3 *** для текста 5 мб
+	*** 4194303=s 12=c *test_visited_states(F3, c, s/)
+	4194304=s 12=c *test_visited_states(F3, c, s/)
+	4194303=s 10=c *test_visited_states(F3, c, s/)
+	4194303=s 100=c *test_visited_states(F3, c, s/)
+	4194303=s 500=c *test_visited_states(F3, c, s/)
+	4194304=s 10=c *test_visited_states(F3, c, s/)
+	4194304=s 100=c *test_visited_states(F3, c, s/)
+	4194304=s 500=c *test_visited_states(F3, c, s/)
+**
+
 
 
 lfsr_test(/)
@@ -612,9 +687,9 @@ keyGenerate_test_huge(n, m/F4, e)
 		@+L2(q) *BFrand(L2, l/L2) *** *BFoutput_s(L2/) /'\n'>C
 		*** /'L1 = '>C *printLComplex(L1/) /'\n'>C
 		*** /'L2 = '>C *HprintfBN(L2/) /'\n'>C
-		*everyFloydsMethodWPrint(L1, 0, Q1/L4) /'\n'>C
+		*floydsMethodWPrint(L1, 0, Q1/) /'\n'>C
 		
-		*** *printDiagram(L4, L1/) /'\n'>C
+		*printDiagram(L4, L1/) /'\n'>C
 		*searchMaxMinAvg(L4/k, v, l)
 		/'max = '>C *printf(k/) /'\n'>C
 		/'min = '>C *printf(v/) /'\n'>C
@@ -915,19 +990,16 @@ encrPrep(F1, L4, L5, c, s/)
 	*bv_constructor3(L6, s, 0/L6)
 	*** /'automat`s size = '>C *printf(s/) /'\n'>C
 	*** /'switch = '>C *printf(c/) /'\n'>C
-	/'weight before = '>C *bv_weight(L6/t) *printf(t/) /'\n'>C
+	/'Visited states before cyphering = '>C *bv_weight(L6/t) *printf(t/) /'\n'>C
 	*** /'k = '>C *printf(k/) /'\n'>C
-	
 	*genAutomat(s, l/L2, L3, x, e)
-	Q2+2=t
-	@+L7(t)
-	Q2=Q7
-	*** *everyFloydsMethod(L2, 0, Q2/L7) /'\n'>C
-	*** *searchMaxMinAvg(L7/o, p, r)
+	*** Q2+2=t @+L7(t) Q2=Q7 *everyFloydsMethod(L2, 0, Q2/L7) /'\n'>C
+	*** *floydsMethodWPrint(L2, 1, 16/) /'\n'>C
+	*** *searchMaxMinAvg(L7, 10/o, p, r, a)
 	*cypher_wbv(L2, L3, L4, L5, L6, r, w, x, c/L6, e)
 	*** *bv_printOnesPlaces(L6/) /'\n'>C
 	*** *bv_print(L6/) /'\n'>C
-	/'weight = '>C *bv_weight(L6/t) *printf(t/) /'\n'>C
+	/'Visited states after cyphering = '>C *bv_weight(L6/t) *printf(t/) /'\n'>C
 	*fclose(r/)
 	*** *fclose(w/)
 **
@@ -993,7 +1065,7 @@ decrPrep(L4, L5, c, s/)
 *** L1 - таблица переходов автомата
 *** L2 - функция выходов автомата
 *** L5 - регистр сдвига LFSR
-*** L6 - полином для LFSR
+*** L6 - полином LFSR
 *** r - дескриптор файла с текстом/криптограммой
 *** w - дескриптор файла с криптограммой/расшифрованным текстом
 *** F3 - ключевой поток
@@ -1003,15 +1075,13 @@ cypher(L1, L2, L5, L6, r, w, x, s/e)
 	1010=n Oe=l
 	@+F3(n)
 	@+F4(n)
-	1000=Q3=Q4
+	1000=n
 	*** /'s = '>C *printf(s/) /'\n'>C
 	2=a 3=c 5=m *** 3=s
 	P1
-		OQ4 *freadf(r, F4, 0, Q3/k)
-		*** /'k = '>C *printf(k/) /' '>C
-		?(k<1)2 k=Q4
-		Q4=Q3
-		*genKeyStream(x, L1, L2, L5, L6, Q3, s, l/F3, L5, x, s, l, e)
+		OQ4 *freadf(r, F4, 0, n/k)
+		?(k<1)2 k=Q4=Q3
+		*genKeyStream(x, L1, L2, L5, L6, k, s, l/F3, L5, x, s, l, e)
 		*** /'		x = '>C *printf(x/) /'\n'>C
 		*** *lcg(a, s, c, m/s) *** /'s = '>C *printf(s/) /'\n'>C
 		*** *xorF(F3, F4/F4) *** F3^F4=F4
@@ -1026,7 +1096,7 @@ cypher(L1, L2, L5, L6, r, w, x, s/e)
 *** L1 - таблица переходов автомата
 *** L2 - функция выходов автомата
 *** L5 - регистр сдвига LFSR
-*** L6 - полином для LFSR
+*** L6 - полином LFSR
 *** L7 - булев вектор для проверки посещённых состояний автомата
 *** r - дескриптор файла с текстом/криптограммой
 *** w - дескриптор файла с криптограммой/расшифрованным текстом
@@ -1037,15 +1107,19 @@ cypher_wbv(L1, L2, L5, L6, L7, r, w, x, s/L7, e)
 	1010=n Oe=l
 	@+F3(n)
 	@+F4(n)
-	1000=Q3=Q4
+	1000=n
 	*** /'s = '>C *printf(s/) /'\n'>C
+	*** 2=a 3=c 5=m *** период 3
+	*** 3=a 7=c 16=m *** период 7
+	*** 5=a 7=c 53=m *** период 52
+	11=a 7=c 13=m
 	P1
-		OQ4 *freadf(r, F4, 0, Q3/k)
+		OQ4 *freadf(r, F4, 0, n/k)
 		*** /'k = '>C *printf(k/) /' '>C
-		?(k<1)2 k=Q4
-		Q4=Q3
-		*genKeyStream_wbv(x, L1, L2, L5, L6, L7, Q3, s, l/F3, L5, L7, x, s, l, e)
+		?(k<1)2 k=Q4=Q3
+		*genKeyStream_wbv(x, L1, L2, L5, L6, L7, k, s, l/F3, L5, L7, x, s, l, e)
 		*** /'		x = '>C *printf(x/) /'\n'>C
+		*lcg(a, s, c, m/s) *** /'s = '>C *printf(s/) /'\n'>C
 		*** *xorF(F3, F4/F4) *** F3^F4=F4
 		*** *fwritef(w, F4, 0, Q4/k)
 		*** /'k = '>C *printf(k/) /'\n'>C
@@ -1246,7 +1320,7 @@ printDiagram(L1, L2/)
 *** c	- длина периода
 *** b	- признак случайного перебора {0, 1}
 *** s	- количество циклов
-everyFloydsMethodWPrint(L1, b, s/L2)
+floydsMethodWPrint(L1, b, s/)
 	Oi
 	?(i>=s)4
 	/'*************************************************\n'>C
@@ -1254,15 +1328,15 @@ everyFloydsMethodWPrint(L1, b, s/L2)
 	/'|-----------------------------------------------|\n'>C
 	P1
 		i=x=y=j Oc ?(b<1)2 X;Q1=x=y=j
+		*** X&3fffffh;Q1=x=y=j
 	P2
 		*BnextState(x, L1/x)
 		*BnextState(y, L1/y)
 		*BnextState(y, L1/y)
 		Dc ?(x#y)2
 	P3
-		c=L2j
 		/'|	'>C *printf(j/) /'	|	'>C *printf(L1j/)
-		/'	|	'>C *printf(L2j/) /'	|\n'>C
+		/'	|	'>C *printf(c/) /'	|\n'>C
 		Di ?(i<s)1
 	P4
 		/'*************************************************'>C
@@ -1271,19 +1345,21 @@ everyFloydsMethodWPrint(L1, b, s/L2)
 
 searchMaxMinAvg(L1, m/k, v, l, a)
 	?(Q1<1)5
-	Oi=a Q1=w Yw *** a - количество элементов меньше m
-	L1.0=k=v=l *** max, min, avg
+	Oi=a=f Q1=w Yw m-1=n *** a - количество элементов меньше m
+	L1.0+1=k-2=v+1=l *** max, min, avg
 	P1
-		?(i>w)6 ?(L1i<=k)2 L1i=k
+		?(i>w)6 ?(L1i<k)2 L1i+1=k
 	P2
-		?(L1i>=v)3 L1i=v
+		?(L1i>v)3 L1i-1=v ?(L1i>0)3 L1i=v 1=f *** f=1, чтобы не увеличивать v в конце, значит оно уже равно 0
 	P3
-		?(L1i>m)4 Da
+		?(L1i>n)4 Da
 	P4
-		l+L1i=l Di ?=1 *** l/Q1=l
+		*** l+L1i=l
+		Di ?=1 *** l/Q1=l
 	P5
 		/'searchMaxMinAvg: ERROR: Q1 equals zero\n'>C
-	P6
+	P6 Yk ?(f=0)7 Dv
+	P7
 **
 
 
