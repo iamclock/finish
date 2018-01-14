@@ -53,8 +53,7 @@
 main(/)
 	*** *main_for_time(/)
 	*** *main_encr_decr(/)
-	*** *test_visited_states(/)
-	*** *test_diff_visited_states(/)
+	*test_diff_visited_states(/)
 	*** *lfsr_test(/)
 	*** *switchValAnalysePrep(/)
 	*** *experiment_time_5mb(/) /'\n'>C
@@ -63,8 +62,8 @@ main(/)
 	*** *experiment_time_10mb_10times(/)
 	*** *experiment_5mb(/) /'\n'>C
 	*** *experiment_10mb(/) /'\n'>C
-	*switchValAnalysePrep_5mb(/)
-	*switchValAnalysePrep_10mb(/)
+	*** *switchValAnalysePrep_5mb(/)
+	*** *switchValAnalysePrep_10mb(/)
 **
 
 
@@ -509,7 +508,7 @@ time_decr(L4, L5, c, s/)
 **
 
 
-encrPrep2(F1, L4, L5, c, s/)
+encPrep2(F1, L4, L5, c, s/)
 	*fopen(F1, 0/r)
 	
 	s+5=q
@@ -529,7 +528,7 @@ encrPrep2(F1, L4, L5, c, s/)
 **
 
 
-*cypher_keyGenOnly(L1, L2, L5, L6, r, w, x, s/e)
+cypher_keyGenOnly(L1, L2, L5, L6, r, w, x, s/e)
 	1010=n Oe=l
 	@+F3(n)
 	@+F4(n)
@@ -544,7 +543,7 @@ encrPrep2(F1, L4, L5, c, s/)
 **
 
 
-*cypher_keyGenOnly_wbv(L1, L2, L5, L6, L7, r, w, x, s/L7, e)
+cypher_keyGenOnly_wbv(L1, L2, L5, L6, L7, r, w, x, s/L7, e)
 	1010=n Oe=l
 	@+F3(n)
 	@+F4(n)
@@ -580,52 +579,52 @@ test_visited_states(F3, c, s/)
 	/'Total states: '>C *printf(s/) /'\n'>C
 	/'Switch value: '>C *printf(c/) /'\n'>C
 	*** убрать первое V (стрелочка)
-	8b124e58h=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C ffffffffh=L1.0 *encrPrep2(F3, L1, L2, c, s/)
-	C68B8B7Eh=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C ffffffffh=L1.0 *encrPrep2(F3, L1, L2, c, s/)
-	346b1633h=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C ffffffffh=L1.0 *encrPrep2(F3, L1, L2, c, s/)
-	ed1b14e5h=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C ffffffffh=L1.0 *encrPrep2(F3, L1, L2, c, s/)
-	4d12f02fh=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C ffffffffh=L1.0 *encrPrep2(F3, L1, L2, c, s/)
-	4f0ae47bh=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C ffffffffh=L1.0 *encrPrep2(F3, L1, L2, c, s/)
-	c40bb8cdh=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C ffffffffh=L1.0 *encrPrep2(F3, L1, L2, c, s/)
-	bf7c0d35h=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C ffffffffh=L1.0 *encrPrep2(F3, L1, L2, c, s/)
-	8b124e58h=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C ffffffffh=L1.0 *encrPrep2(F3, L1, L2, c, s/)
-	bee692ach=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C ffffffffh=L1.0 *encrPrep2(F3, L1, L2, c, s/)
-	46d1bbc0h=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C ffffffffh=L1.0 *encrPrep2(F3, L1, L2, c, s/)
+	8b124e58h=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C ffffffffh=L1.0 *encPrep2(F3, L1, L2, c, s/)
+	C68B8B7Eh=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C ffffffffh=L1.0 *encPrep2(F3, L1, L2, c, s/)
+	346b1633h=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C ffffffffh=L1.0 *encPrep2(F3, L1, L2, c, s/)
+	ed1b14e5h=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C ffffffffh=L1.0 *encPrep2(F3, L1, L2, c, s/)
+	4d12f02fh=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C ffffffffh=L1.0 *encPrep2(F3, L1, L2, c, s/)
+	4f0ae47bh=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C ffffffffh=L1.0 *encPrep2(F3, L1, L2, c, s/)
+	c40bb8cdh=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C ffffffffh=L1.0 *encPrep2(F3, L1, L2, c, s/)
+	bf7c0d35h=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C ffffffffh=L1.0 *encPrep2(F3, L1, L2, c, s/)
+	8b124e58h=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C ffffffffh=L1.0 *encPrep2(F3, L1, L2, c, s/)
+	bee692ach=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C ffffffffh=L1.0 *encPrep2(F3, L1, L2, c, s/)
+	46d1bbc0h=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C ffffffffh=L1.0 *encPrep2(F3, L1, L2, c, s/)
 **
 
 
 test_diff_visited_states(/)
-	*** *test_visited_states_10mb(/)
 	*test_visited_states_5mb(/)
+	*test_visited_states_10mb(/)
+**
+
+
+test_visited_states_5mb(/)
+	@+F3(100)
+	OQ3 @'text5.txt'>F3 *** для текста 5 мб
+	4194303=s 10=c *test_visited_states(F3, c, s/)
+	4194303=s 12=c *test_visited_states(F3, c, s/)
+	4194303=s 100=c *test_visited_states(F3, c, s/)
+	4194303=s 500=c *test_visited_states(F3, c, s/)
+	4194304=s 10=c *test_visited_states(F3, c, s/)
+	4194304=s 12=c *test_visited_states(F3, c, s/)
+	4194304=s 100=c *test_visited_states(F3, c, s/)
+	4194304=s 500=c *test_visited_states(F3, c, s/)
 **
 
 
 test_visited_states_10mb(/)
 	@+F3(100)
 	OQ3 @'text10.txt'>F3 *** для текста 10 мб
-	*** 8388607=s 12=c *test_visited_states(F3, c, s/)
-	*** 8388608=s 12=c *test_visited_states(F3, c, s/)
 	8388607=s 10=c *test_visited_states(F3, c, s/)
+	8388607=s 12=c *test_visited_states(F3, c, s/)
 	8388607=s 100=c *test_visited_states(F3, c, s/)
 	8388607=s 500=c *test_visited_states(F3, c, s/)
 	8388608=s 10=c *test_visited_states(F3, c, s/)
+	8388608=s 12=c *test_visited_states(F3, c, s/)
 	8388608=s 100=c *test_visited_states(F3, c, s/)
 	8388608=s 500=c *test_visited_states(F3, c, s/)
 **
-
-test_visited_states_5mb(/)
-	@+F3(100)
-	OQ3 @'text5.txt'>F3 *** для текста 5 мб
-	*** 4194303=s 12=c *test_visited_states(F3, c, s/)
-	4194304=s 12=c *test_visited_states(F3, c, s/)
-	4194303=s 10=c *test_visited_states(F3, c, s/)
-	4194303=s 100=c *test_visited_states(F3, c, s/)
-	4194303=s 500=c *test_visited_states(F3, c, s/)
-	4194304=s 10=c *test_visited_states(F3, c, s/)
-	4194304=s 100=c *test_visited_states(F3, c, s/)
-	4194304=s 500=c *test_visited_states(F3, c, s/)
-**
-
 
 
 lfsr_test(/)
