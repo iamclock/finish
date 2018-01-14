@@ -97,7 +97,7 @@ test_printPlaces(/)
 	@+L1(k)
 	*bv_constructor1(L1, 51, 1/L1)
 	*bv_print(L1/) /'\n'>C
-	*bv_printOnesPlaces(L1/) /'\n'>C
+	*bv_printUnitsPlaces(L1/) /'\n'>C
 	*bv_printZerosPlaces(L1/) /'\n'>C
 **
 
@@ -114,7 +114,7 @@ test_printPlaces(/)
 bv_constructor1(L1, s, r/L1)
 	OZ=Q1 s:32+2=t S1=k ?(k<t)2 t=Q1
 	?(Z>0)1 Q1-1=Q1
-	P1 s=L1.0 ?(r=0)3 *bv_randomFill(L1/L1) ?=3
+	P1 s=L1.0 r&1=b ?(b=0)3 *bv_randomFill(L1/L1) ?=3
 	P2 /'bv_constructor1 ERROR: L1 capacity is less than require size\n'>C
 	P3
 **
@@ -154,7 +154,7 @@ bv_fill(L1, b/L1)
 *** заполнить булев вектор случайно
 bv_randomFill(L1/L1)
 	*** 5f6abch=X
-	T=X
+	*** T=X
 	1=i Q1-1=q
 	P1 ?(i>q)2 X&ffffh<16=L1i X&ffffh|L1i=L1i Di ?=1
 	P2
@@ -217,7 +217,7 @@ bv_print(L1/)
 
 *** вывод мест булева вектора с единицами
 *** L1 - булев вектор
-bv_printOnesPlaces(L1/)
+bv_printUnitsPlaces(L1/)
 	Op L1.0-1=q *** p идёт от нуля - значит последний бит равен L1.0-1
 	P1 ?(p>q)3 *bv_get(L1, p/b) ?(b=0)2 *printf(p/) /' '>C
 	P2 Dp ?=1
@@ -239,6 +239,14 @@ bv_weight(L1/w)
 	1=i Q1-1=q Ow
 	P1 ?(i>q)2 L1i%+w=w Di ?=1
 	P2
+**
+
+
+bv_countZeros(L1/c)
+**
+
+
+bv_countUnits(L1/c)
 **
 
 
@@ -278,7 +286,7 @@ bv_print2(L1/)
 
 *** вывод мест булева вектора с единицами
 *** L1 - булев вектор
-bv_printOnesPlaces_o(L1/)
+bv_printUnitsPlaces_o(L1/)
 	Op=s 1=i Q1-1=w L1.0-1=q
 	P1 ?(i>w)5 *** p идёт от нуля - значит последний бит равен L1.0-1
 	P2 1<s&L1i>s=b ?(b=0)3 *printf(p/) /' '>C

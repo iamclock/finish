@@ -54,7 +54,7 @@ main(/)
 	*** *main_for_time(/)
 	*** *main_encr_decr(/)
 	*** *test_visited_states(/)
-	*** *test_diff_visited_states(/)
+	*test_diff_visited_states(/)
 	*** *lfsr_test(/)
 	*** *switchValAnalysePrep(/)
 	*** *experiment_time_5mb(/) /'\n'>C
@@ -63,8 +63,8 @@ main(/)
 	*** *experiment_time_10mb_10times(/)
 	*** *experiment_5mb(/) /'\n'>C
 	*** *experiment_10mb(/) /'\n'>C
-	*switchValAnalysePrep_5mb(/)
-	*switchValAnalysePrep_10mb(/)
+	*** *switchValAnalysePrep_5mb(/)
+	*** *switchValAnalysePrep_10mb(/)
 **
 
 
@@ -81,18 +81,16 @@ main_encr_decr(/)
 	*** 1=Q1=Q2 a3000000h=L2.0 ffffffffh=L1.0
 	*** 2=Q1=Q2 80000000h=L2.1 00001324h=L2.0 ffffffffh=L1.0=L1.1
 			*** счётчик для смены текущего состояния автомата
-	16=c
+	448=c
 			*** Число состояний автомата
 	*** 134217728=s *** 512 mb
 	*** 67108864=s *** 256 mb
 	*** 33554432=s *** 128 mb
 	*** 8388608=s *** для текста 10 мб
-	*** 4194304=s *** для текста 5 мб
+	4194304=s *** для текста 5 мб
 	*** 838861=s *** для текста 1 мб
 	*** 524288=s *** 2 mb
 	*** 1048576=s
-	*** 4194303=s *** для текста 5 мб
-	8388607=s *** для текста 10 мб
 		
 	*** T=X
 	*** X&ffffh<16=p
@@ -392,7 +390,7 @@ experiment_10mb(/)
 
 
 switchValAnalysePrep_5mb(/)
-	/'Switch value analyse 5mb diplom\n'>C
+	/'switchValAnalyse_5mb_pid\n'>C
 	
 	4194303=s *** для текста 5 мб
 	*** 524288=s *** 2 mb infinite loop
@@ -413,7 +411,7 @@ switchValAnalysePrep_5mb(/)
 
 
 switchValAnalysePrep_10mb(/)
-	/'Switch value analyse 10mb diplom\n'>C
+	/'switchValAnalyse_10mb_pid\n'>C
 	
 	8388607=s *** для текста 10 мб
 	*** 524288=s *** 2 mb infinite loop
@@ -437,14 +435,15 @@ switchValAnalyse(s, m/)
 	s+5=q
 	@+L1(q)
 	@+L2(q)
-	@+L3(q) *bv_constructor1(L3, s, 0/L3)
-	*genAutomat(s/L2, L3, x, e)
-	2BAD88A5h=X *** надо будет убрать
+	*** /!\ возможно ли, что Il>5+3 выйдет за границы 32ух бит?
+	*BFfindVarCount(s/l) Il>5+3=q *** /'l = '>C *printf(l/) /'\n'>C
+	@+L3(q)
+	*genAutomat(s, l/L2, L3, x, e)
 	*floydsMethodWPrint(L2, 1, 16/) /'\n'>C
 	Q2=Q1
 	*everyFloydsMethod(L2, 0, Q2/L1)
 	*** /'Q1 = '>C *printf(Q1/) /'\n'>C
-	*searchMaxMinAvg(L1, m/k, v, l, a)
+	*searchMaxMinAvg(L1, o/k, v, l, a)
 	/'max = '>C *printf(k/) /'\n'>C
 	/'min = '>C *printf(v/) /'\n'>C
 	/'less than '>C *printf(m/) /' = '>C *printf(a/) /'\n'>C
@@ -509,56 +508,6 @@ time_decr(L4, L5, c, s/)
 **
 
 
-encrPrep2(F1, L4, L5, c, s/)
-	*fopen(F1, 0/r)
-	
-	s+5=q
-	@+L2(q)
-	@+L3(q) *bv_constructor1(L3, s, 0/L3)
-	s/32+3=q
-	@+L6(q) *bv_constructor3(L6, s, 0/L6)
-	/'Visited states before cyphering = '>C *bv_weight(L6/t) *printf(t/) /'\n'>C
-	*genAutomat(s/L2, L3, x, e)
-	*** Q2+2=t @+L7(t) Q2=Q7 *everyFloydsMethod(L2, 0, Q2/L7) /'\n'>C
-	*** *floydsMethodWPrint(L2, 1, 16/) /'\n'>C
-	*** *searchMaxMinAvg(L7, 10/o, p, r, a)
-	*** *printLComplex(L2/) /'\n'>C *printLComplex(L3/) /'\n'>C
-	*cypher_keyGenOnly_wbv(L2, L3, L4, L5, L6, r, w, x, c/L6, e)
-	/'Visited states after cyphering = '>C *bv_weight(L6/t) *printf(t/) /'\n'>C
-	*fclose(r/)
-**
-
-
-*cypher_keyGenOnly(L1, L2, L5, L6, r, w, x, s/e)
-	1010=n Oe=l
-	@+F3(n)
-	@+F4(n)
-	1000=n
-	*** /'s = '>C *printf(s/) /'\n'>C
-	P1
-		OQ4 *freadf(r, F4, 0, n/k)
-		?(k<1)2 k=Q4=Q3
-		*genKeyStream(x, L1, L2, L5, L6, k, s, l/F3, L5, x, s, l, e)
-		?=1
-	P2
-**
-
-
-*cypher_keyGenOnly_wbv(L1, L2, L5, L6, L7, r, w, x, s/L7, e)
-	1010=n Oe=l
-	@+F3(n)
-	@+F4(n)
-	1000=n
-	*** /'s = '>C *printf(s/) /'\n'>C
-	P1
-		OQ4 *freadf(r, F4, 0, n/k)
-		?(k<1)2 k=Q4=Q3
-		*genKeyStream_wbv(x, L1, L2, L5, L6, L7, k, s, l/F3, L5, L7, x, s, l, e)
-		?=1
-	P2
-**
-
-
 test_visited_states(F3, c, s/)
 	@+L1(5)
 	@+L2(5)
@@ -580,17 +529,17 @@ test_visited_states(F3, c, s/)
 	/'Total states: '>C *printf(s/) /'\n'>C
 	/'Switch value: '>C *printf(c/) /'\n'>C
 	*** убрать первое V (стрелочка)
-	8b124e58h=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C ffffffffh=L1.0 *encrPrep2(F3, L1, L2, c, s/)
-	C68B8B7Eh=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C ffffffffh=L1.0 *encrPrep2(F3, L1, L2, c, s/)
-	346b1633h=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C ffffffffh=L1.0 *encrPrep2(F3, L1, L2, c, s/)
-	ed1b14e5h=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C ffffffffh=L1.0 *encrPrep2(F3, L1, L2, c, s/)
-	4d12f02fh=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C ffffffffh=L1.0 *encrPrep2(F3, L1, L2, c, s/)
-	4f0ae47bh=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C ffffffffh=L1.0 *encrPrep2(F3, L1, L2, c, s/)
-	c40bb8cdh=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C ffffffffh=L1.0 *encrPrep2(F3, L1, L2, c, s/)
-	bf7c0d35h=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C ffffffffh=L1.0 *encrPrep2(F3, L1, L2, c, s/)
-	8b124e58h=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C ffffffffh=L1.0 *encrPrep2(F3, L1, L2, c, s/)
-	bee692ach=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C ffffffffh=L1.0 *encrPrep2(F3, L1, L2, c, s/)
-	46d1bbc0h=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C ffffffffh=L1.0 *encrPrep2(F3, L1, L2, c, s/)
+	8b124e58h=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C ffffffffh=L1.0 *encrPrep(F3, L1, L2, c, s/)
+	C68B8B7Eh=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C ffffffffh=L1.0 *encrPrep(F3, L1, L2, c, s/)
+	346b1633h=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C ffffffffh=L1.0 *encrPrep(F3, L1, L2, c, s/)
+	ed1b14e5h=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C ffffffffh=L1.0 *encrPrep(F3, L1, L2, c, s/)
+	4d12f02fh=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C ffffffffh=L1.0 *encrPrep(F3, L1, L2, c, s/)
+	4f0ae47bh=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C ffffffffh=L1.0 *encrPrep(F3, L1, L2, c, s/)
+	c40bb8cdh=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C ffffffffh=L1.0 *encrPrep(F3, L1, L2, c, s/)
+	bf7c0d35h=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C ffffffffh=L1.0 *encrPrep(F3, L1, L2, c, s/)
+	8b124e58h=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C ffffffffh=L1.0 *encrPrep(F3, L1, L2, c, s/)
+	bee692ach=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C ffffffffh=L1.0 *encrPrep(F3, L1, L2, c, s/)
+	46d1bbc0h=X=u /'Seed for automat = '>C *OxHprintf(u/) /'\n'>C ffffffffh=L1.0 *encrPrep(F3, L1, L2, c, s/)
 **
 
 
@@ -1033,25 +982,26 @@ encrPrep(F1, L4, L5, c, s/)
 	
 	s+5=q
 	@+L2(q)
-	@+L3(q) *bv_constructor1(L3, s, 0/L3)
+	*** /!\ возможно ли, что Il>5+3 выйдет за границы 32ух бит?
+	*BFfindVarCount(s/l) Il>5+3=q *** /'l = '>C *printf(l/) /'\n'>C
+	@+L3(q)
 	s/32+3=k
 	@+L6(k)
 	*bv_constructor3(L6, s, 0/L6)
-	/'automat`s size = '>C *printf(s/) /'\n'>C
+	*** /'automat`s size = '>C *printf(s/) /'\n'>C
 	*** /'switch = '>C *printf(c/) /'\n'>C
 	/'Visited states before cyphering = '>C *bv_weight(L6/t) *printf(t/) /'\n'>C
 	*** /'k = '>C *printf(k/) /'\n'>C
-	*genAutomat(s/L2, L3, x, e) *** /'L3.0 = '>C *printf(L3.0/) /'\n'>C
+	*genAutomat(s, l/L2, L3, x, e)
 	*** Q2+2=t @+L7(t) Q2=Q7 *everyFloydsMethod(L2, 0, Q2/L7) /'\n'>C
 	*** *floydsMethodWPrint(L2, 1, 16/) /'\n'>C
 	*** *searchMaxMinAvg(L7, 10/o, p, r, a)
-	*** *printLComplex(L2/) /'\n'>C *printLComplex(L3/) /'\n'>C
 	*cypher_wbv(L2, L3, L4, L5, L6, r, w, x, c/L6, e)
 	*** *bv_printOnesPlaces(L6/) /'\n'>C
 	*** *bv_print(L6/) /'\n'>C
 	/'Visited states after cyphering = '>C *bv_weight(L6/t) *printf(t/) /'\n'>C
 	*fclose(r/)
-	*fclose(w/)
+	*** *fclose(w/)
 **
 
 
@@ -1088,23 +1038,24 @@ decrPrep(L4, L5, c, s/)
 	*** 5000=s
 	s+5=q
 	@+L2(q)
-	@+L3(q) *bv_constructor1(L3, s, 0/L3)
+	*** /!\ возможно ли, что Il>5+3 выйдет за границы 32ух бит?
+	*BFfindVarCount(s/l) Il>5+3=q
+	@+L3(q)
 	s/32+3=k
 	@+L6(k)
 	*bv_constructor3(L6, s, 0/L6)
-	/'automat`s size = '>C *printf(s/) /'\n'>C
+	*** /'automat`s size = '>C *printf(s/) /'\n'>C
 	*** /'switch = '>C *printf(c/) /'\n'>C
-	/'weight before cyphering = '>C *bv_weight(L6/t) *printf(t/) /'\n'>C
+	/'weight before = '>C *bv_weight(L6/t) *printf(t/) /'\n'>C
 	
 	*** /'k = '>C *printf(k/) /'\n'>C
 	*** /'s = '>C *printf(s/) /'\n'>C
 	*** /'l = '>C *printf(l/) /'\n'>C
-	*genAutomat(s/L2, L3, x, e) *** /'L3.0 = '>C *printf(L3.0/) /'\n'>C
-	*** *printLComplex(L2/) /'\n'>C *printLComplex(L3/) /'\n'>C
+	*genAutomat(s, l/L2, L3, x, e)
 	*cypher_wbv(L2, L3, L4, L5, L6, r, w, x, c/L6, e)
 	*** *bv_printOnesPlaces(L6/)
 	*** *bv_print(L6/)
-	/'weight after cyphering = '>C *bv_weight(L6/t) *printf(t/) /'\n'>C
+	/'weight = '>C *bv_weight(L6/t) *printf(t/) /'\n'>C
 	*fclose(r/)
 	*fclose(w/)
 **
@@ -1126,20 +1077,22 @@ cypher(L1, L2, L5, L6, r, w, x, s/e)
 	@+F4(n)
 	1000=n
 	*** /'s = '>C *printf(s/) /'\n'>C
+	2=a 3=c 5=m *** 3=s
 	P1
 		OQ4 *freadf(r, F4, 0, n/k)
 		?(k<1)2 k=Q4=Q3
 		*genKeyStream(x, L1, L2, L5, L6, k, s, l/F3, L5, x, s, l, e)
 		*** /'		x = '>C *printf(x/) /'\n'>C
-		*xorF(F3, F4/F4) *** F3^F4=F4
-		*fwritef(w, F4, 0, Q4/k)
+		*** *lcg(a, s, c, m/s) *** /'s = '>C *printf(s/) /'\n'>C
+		*** *xorF(F3, F4/F4) *** F3^F4=F4
+		*** *fwritef(w, F4, 0, Q4/k)
 		*** /'k = '>C *printf(k/) /'\n'>C
 		?=1
 	P2
 **
 
 
-*** Шифрование/Расшифрование с булевым вектором посещённых состояний
+*** Шифрование/Расшифрование с булевым вектором
 *** L1 - таблица переходов автомата
 *** L2 - функция выходов автомата
 *** L5 - регистр сдвига LFSR
@@ -1156,14 +1109,19 @@ cypher_wbv(L1, L2, L5, L6, L7, r, w, x, s/L7, e)
 	@+F4(n)
 	1000=n
 	*** /'s = '>C *printf(s/) /'\n'>C
+	*** 2=a 3=c 5=m *** период 3
+	*** 3=a 7=c 16=m *** период 7
+	*** 5=a 7=c 53=m *** период 52
+	11=a 7=c 13=m
 	P1
 		OQ4 *freadf(r, F4, 0, n/k)
 		*** /'k = '>C *printf(k/) /' '>C
 		?(k<1)2 k=Q4=Q3
 		*genKeyStream_wbv(x, L1, L2, L5, L6, L7, k, s, l/F3, L5, L7, x, s, l, e)
 		*** /'		x = '>C *printf(x/) /'\n'>C
-		*xorF(F3, F4/F4) *** F3^F4=F4
-		*fwritef(w, F4, 0, Q4/k)
+		*lcg(a, s, c, m/s) *** /'s = '>C *printf(s/) /'\n'>C
+		*** *xorF(F3, F4/F4) *** F3^F4=F4
+		*** *fwritef(w, F4, 0, Q4/k)
 		*** /'k = '>C *printf(k/) /'\n'>C
 		?=1
 	P2
@@ -1192,10 +1150,17 @@ BnextState(x, L1/x)
 **
 
 
-*** L1 - булев вектор
 *** b - 1 бит
 Boutput(x, L1/b)
-	*bv_get(L1, x/b)
+	*** булевая функция L1
+	*BFget(L1, x/b)
+**
+
+
+blankShot(n/)
+	Oi
+	P1
+		X Di ?(i<n)1
 **
 
 
@@ -1242,13 +1207,11 @@ xorF(F1, F2/F3)
 *** e - признак ошибки
 genKeyStream(x, L1, L2, L4, L5, n, s, l/F3, L4, x, s, l, e)
 	n=Q3-1=w Oi s+1=q
-	11=a 7=c 13=m
 	*** /'s = '>C *printf(s/) /'\n'>C
 	P1 ?(i>w)4 Oj=F3i
 	P2 ?(j>7)3
 		Dl *** /'l = '>C *printf(l/) /'\n'>C
 		?(l<q)93 *doLFSR(L4, L5/L4, b) Ol L4.0;Q1=x *** no eto ne tochno L4.0&2^y=x
-		*** *lcg(a, s, c, m/s) s+1=q *** /'s = '>C *printf(s/) /'\n'>C
 		*** /'LFSR done\n'>C
 		*** /'L4.0 = '>C *Hprintf(L4.0/) /'\n'>C
 	P93
@@ -1277,12 +1240,8 @@ genKeyStream(x, L1, L2, L4, L5, n, s, l/F3, L4, x, s, l, e)
 *** e - признак ошибки
 genKeyStream_wbv(x, L1, L2, L4, L5, L6, n, s, l/F3, L4, L6, x, s, l, e)
 	n=Q3-1=w Oi s+1=q
-	*** 2=a 3=c 5=m *** период 3
-	*** 3=a 7=c 16=m *** период 7
-	*** 5=a 7=c 53=m *** период 52
 	*** 2=a 3=c 7=m *** 3=s
-	*** 2=a 3=c 7=m *** 3=s
-	11=a 7=c 13=m
+	2=a 3=c 7=m *** 3=s
 	*** /'s = '>C *printf(s/) /'\n'>C
 	P1 ?(i>w)4 Oj=F3i
 	P2 ?(j>7)3
@@ -1290,7 +1249,7 @@ genKeyStream_wbv(x, L1, L2, L4, L5, L6, n, s, l/F3, L4, L6, x, s, l, e)
 		?(l<q)93 *doLFSR(L4, L5/L4, b) Ol L4.0;Q1=x *** no eto ne tochno L4.0&2^y=x
 		*** /'l = '>C *printf(l/) /'\n'>C
 		*** /'s = '>C *printf(s/) /'\n'>C
-		*** *lcg(a, s, c, m/s) s+1=q *** /'s = '>C *printf(s/) /'\n'>C
+		*** *lcg(a, s, c, m/s) s+1=q /'s = '>C *printf(s/) /'\n'>C
 		*** /'LFSR done\n'>C
 		*** /'L4.0 = '>C *Hprintf(L4.0/) /'\n'>C
 	P93
@@ -1308,16 +1267,17 @@ genKeyStream_wbv(x, L1, L2, L4, L5, L6, n, s, l/F3, L4, L6, x, s, l, e)
 
 *** генерация автомата
 *** m - число состояний, мощность L1
+*** l - мощность L2
 *** x - начальное состояние автомата
 *** L1 - таблица переходов автомата
 *** L2 - функция выходов автомата
 *** e - код возврата(0 - хорошо)
-genAutomat(m/L1, L2, x, e)
+genAutomat(m, l/L1, L2, x, e)
 	Oe
 	P1
-		m=Q1
+		m=Q1 l=Q2
 		*randLCompMod(L1, m/)
-		*bv_randomFill(L2/L2)
+		*BFrand(L2, l/L2) *** *BFoutput_s(L2/) /'\n'>C
 		X;m=x
 **
 
@@ -1385,19 +1345,21 @@ floydsMethodWPrint(L1, b, s/)
 
 searchMaxMinAvg(L1, m/k, v, l, a)
 	?(Q1<1)5
-	Oi=a Q1=w Yw m-1=n *** a - количество элементов меньше m
-	L1.0=k=v=l *** max, min, avg
+	Oi=a=f Q1=w Yw m-1=n *** a - количество элементов меньше m
+	L1.0+1=k-2=v+1=l *** max, min, avg
 	P1
-		?(i>w)6 ?(L1i<=k)2 L1i=k
+		?(i>w)6 ?(L1i<k)2 L1i+1=k
 	P2
-		?(L1i>=v)3 L1i=v
+		?(L1i>v)3 L1i-1=v ?(L1i>0)3 L1i=v 1=f *** f=1, чтобы не увеличивать v в конце, значит оно уже равно 0
 	P3
 		?(L1i>n)4 Da
 	P4
 		*** l+L1i=l
 		Di ?=1 *** l/Q1=l
-	P5 /'searchMaxMinAvg: ERROR: Q1 equals zero\n'>C
-	P6
+	P5
+		/'searchMaxMinAvg: ERROR: Q1 equals zero\n'>C
+	P6 Yk ?(f=0)7 Dv
+	P7
 **
 
 
