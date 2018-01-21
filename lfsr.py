@@ -18,16 +18,21 @@ def chk_period():
 	#poly = 0xb400
 	#seed = reg = 0xaffffffff
 	#poly = 0x4000006E3
-	seed = reg = 0xffffffff
-	poly = 0x80000A92
+	#seed = reg = 0xffffffff
+	#poly = 0x80000A92
+	seed = reg = 0x1
+	poly = 0x5
 	
 	period = 0
 	print(str(hex(reg)))
-	reg, bit = LFSR(reg, poly)
-	while reg != seed:
+	while True:
 		reg, bit = LFSR(reg, poly)
+		print(bit, end="")
 		#print(str(hex(reg)))
 		period += 1
+		if reg == seed:
+			break
+	print()
 	print(str(hex(reg)))
 	print(str(period))
 	
