@@ -16,6 +16,8 @@ else
 	file_name=$1
 fi
 var=`basename $file_name .l`
+#file_path=`dirname file_name`
+#own_path=`dirname $0`
 ./for_compile/translator.py $file_name
 ./for_compile/ltc $var"_.l"
 #if [ $ret -eq 0 ]

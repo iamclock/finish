@@ -51,6 +51,13 @@
 *** ************************
 
 main(/)
+	*** *test_maxmin_states_all32bit_automates_5mb(/)
+	*** *test_maxmin_states_all32bit_automates_10mb(/)
+	*** *test_visited_states_5mb_minus(/)
+	*** *test_visited_states_5mb_plus(/)
+	*** *test_visited_states_10mb_minus(/)
+	*** *test_visited_states_10mb_plus(/)
+	
 	*** *test_galois(/)
 	*** *test_fibbonaci(/)
 	*** *main_for_time(/)
@@ -64,7 +71,7 @@ main(/)
 	*** *experiment_time_10mb_10times(/)
 	*** *experiment_5mb(/) /'\n'>C
 	*** *experiment_10mb(/) /'\n'>C
-	*** *switchValAnalysePrep_5mb(/)
+	*switchValAnalysePrep_5mb(/)
 	*** *switchValAnalysePrep_10mb(/)
 **
 
@@ -182,6 +189,191 @@ main_for_time(/)
 ************************************
 **** Эксперименты с автоматами *****
 ************************************
+
+test_visited_states_5mb_minus(/)
+	@+L1(5)
+	@+L2(5)
+	@+F3(100)
+	/'Test visited states minus 100 5mb diplom\n'>C
+	
+			*** полиномы и состояния регистра
+	*** 1=Q1=Q2 C3h=L2.0 ffh=L1.0
+	*** 1=Q1=Q2 822Bh=L2.0 ffffh=L1.0
+	1=Q1=Q2 80200003h=L2.0 ffffffffh=L1.0
+	*** 1=Q1=Q2 a3000000h=L2.0 ffffffffh=L1.0
+	*** 2=Q1=Q2 80000000h=L2.1 00001324h=L2.0 ffffffffh=L1.0=L1.1
+			*** счётчик для смены текущего состояния автомата
+	12=c
+			*** Число состояний автомата
+	4194204=s OQ3 @'text5.txt'>F3 *** для текста 5 мб
+	*** 99=w
+	1947=w
+	8b124e58h=u
+	/'Text: '>C /F3>C /'\n'>C
+	/'Switch value: '>C *printf(c/) /'\n'>C
+	/'Seed for automat = '>C *OxHprintf(u/) /'\n'>C
+	Oi
+	P1 ?(i>w)2
+		Ys
+		/'Total states: '>C *printf(s/) /'\n'>C
+		ffffffffh=L1.0 u=X *encPrep2(F3, L1, L2, c, s/) Di
+		/'\n'>C ?=1
+	P2
+**
+
+
+test_visited_states_5mb_plus(/)
+	@+L1(5)
+	@+L2(5)
+	@+F3(100)
+	/'Test visited states plus 100 5mb diplom\n'>C
+	
+			*** полиномы и состояния регистра
+	*** 1=Q1=Q2 C3h=L2.0 ffh=L1.0
+	*** 1=Q1=Q2 822Bh=L2.0 ffffh=L1.0
+	1=Q1=Q2 80200003h=L2.0 ffffffffh=L1.0
+	*** 1=Q1=Q2 a3000000h=L2.0 ffffffffh=L1.0
+	*** 2=Q1=Q2 80000000h=L2.1 00001324h=L2.0 ffffffffh=L1.0=L1.1
+			*** счётчик для смены текущего состояния автомата
+	12=c
+			*** Число состояний автомата
+	4194404=s OQ3 @'text5.txt'>F3 *** для текста 5 мб
+	*** 99=w
+	1947=w
+	8b124e58h=u
+	/'Text: '>C /F3>C /'\n'>C
+	/'Switch value: '>C *printf(c/) /'\n'>C
+	/'Seed for automat = '>C *OxHprintf(u/) /'\n'>C
+	Oi
+	P1 ?(i>w)2
+		Ds
+		/'Total states: '>C *printf(s/) /'\n'>C
+		ffffffffh=L1.0 u=X *encPrep2(F3, L1, L2, c, s/) Di
+		/'\n'>C ?=1
+	P2
+	
+**
+
+
+test_visited_states_10mb_minus(/)
+	@+L1(5)
+	@+L2(5)
+	@+F3(100)
+	/'Test visited states minus 100 10mb diplom\n'>C
+	
+			*** полиномы и состояния регистра
+	*** 1=Q1=Q2 C3h=L2.0 ffh=L1.0
+	*** 1=Q1=Q2 822Bh=L2.0 ffffh=L1.0
+	1=Q1=Q2 80200003h=L2.0 ffffffffh=L1.0
+	*** 1=Q1=Q2 a3000000h=L2.0 ffffffffh=L1.0
+	*** 2=Q1=Q2 80000000h=L2.1 00001324h=L2.0 ffffffffh=L1.0=L1.1
+			*** счётчик для смены текущего состояния автомата
+	12=c
+			*** Число состояний автомата
+	8388508=s OQ3 @'text10.txt'>F3 *** для текста 10 мб
+	*** 99=w
+	1947=w
+	8b124e58h=u
+	/'Text: '>C /F3>C /'\n'>C
+	/'Switch value: '>C *printf(c/) /'\n'>C
+	/'Seed for automat = '>C *OxHprintf(u/) /'\n'>C
+	Oi
+	P1 ?(i>w)2
+		Ys
+		/'Total states: '>C *printf(s/) /'\n'>C
+		ffffffffh=L1.0 u=X *encPrep2(F3, L1, L2, c, s/) Di
+		/'\n'>C ?=1
+	P2
+**
+
+
+test_visited_states_10mb_plus(/)
+	@+L1(5)
+	@+L2(5)
+	@+F3(100)
+	/'Test visited states plus 100 10mb diplom\n'>C
+	
+			*** полиномы и состояния регистра
+	*** 1=Q1=Q2 C3h=L2.0 ffh=L1.0
+	*** 1=Q1=Q2 822Bh=L2.0 ffffh=L1.0
+	1=Q1=Q2 80200003h=L2.0 ffffffffh=L1.0
+	*** 1=Q1=Q2 a3000000h=L2.0 ffffffffh=L1.0
+	*** 2=Q1=Q2 80000000h=L2.1 00001324h=L2.0 ffffffffh=L1.0=L1.1
+			*** счётчик для смены текущего состояния автомата
+	12=c
+			*** Число состояний автомата
+	8388708=s OQ3 @'text10.txt'>F3 *** для текста 10 мб
+	*** 99=w
+	1947=w
+	8b124e58h=u
+	/'Text: '>C /F3>C /'\n'>C
+	/'Switch value: '>C *printf(c/) /'\n'>C
+	/'Seed for automat = '>C *OxHprintf(u/) /'\n'>C
+	Oi
+	P1 ?(i>w)2
+		Ds
+		/'Total states: '>C *printf(s/) /'\n'>C
+		ffffffffh=L1.0 u=X *encPrep2(F3, L1, L2, c, s/) Di
+		/'\n'>C ?=1
+	P2
+**
+
+
+*** without floydsMethodWPrint
+switchValAnalyse2(s, m/)
+	s+5=q
+	@+L1(q)
+	@+L2(q)
+	@+L3(q) *bv_constructor1(L3, s, 0/L3)
+	*genAutomat(s/L2, L3, x, e)
+	*** 2BAD88A5h=X *** надо будет убрать
+	*** *floydsMethodWPrint(L2, 1, 16/) /'\n'>C
+	Q2=Q1
+	*everyFloydsMethod(L2, 0, Q2/L1)
+	*** /'Q1 = '>C *printf(Q1/) /'\n'>C
+	*searchMaxMinAvg(L1, m/k, v, l, a)
+	/'max = '>C *printf(k/) /'\n'>C
+	/'min = '>C *printf(v/) /'\n'>C
+	/'less than '>C *printf(m/) /' = '>C *printf(a/) /'\n'>C
+	*** /'something = '>C *printf(l/) /'\n'>C
+**
+
+
+test_maxmin_states_all32bit_automates_5mb(/)
+	/'maxmin_states_all32bit_automates analyse 5mb diplom\n'>C
+	
+	4194303=s *** для текста 5 мб
+	*** 524288=s *** 2 mb infinite loop
+	5=m
+	
+	*** 1h=u
+	ffffffffh=u
+	P1 ?(u<1)2
+		/'Total states: '>C *printf(s/) /'\n'>C
+		/'Seed for automat = '>C *OxHprintf(u/) /'\n'>C u=X *switchValAnalyse2(s, m/)
+		/'\n'>C Yu *** Du
+		?=1
+	P2
+**
+
+
+test_maxmin_states_all32bit_automates_10mb(/)
+	/'maxmin_states_all32bit_automates analyse 10mb diplom\n'>C
+	
+	8388607=s *** для текста 10 мб
+	*** 524288=s *** 2 mb infinite loop
+	5=m
+	
+	*** 1h=u
+	ffffffffh=u
+	P1 ?(u<1)2
+		/'Total states: '>C *printf(s/) /'\n'>C
+		/'Seed for automat = '>C *OxHprintf(u/) /'\n'>C u=X *switchValAnalyse2(s, m/)
+		/'\n'>C Yu *** Du
+		?=1
+	P2
+**
+
 
 experiment_time_5mb_10times(/)
 	@+L1(5)
@@ -1226,21 +1418,59 @@ Boutput(x, L1/b)
 
 *** Метод Флойда проверки таблицы переходов автомата
 *** L1	- таблица состояний
-*** r	- результат
+*** t 	- начальное состояние
 *** c	- длина периода
-floydsMethod(L1/r, c)
-	Ox=y=c+1=r
-	
+floydsMethod(L1, t/c)
+	t=x=y Oc
 	P1 
 		*BnextState(x, L1/x)
 		*BnextState(y, L1/y)
 		*BnextState(y, L1/y)
 		Dc ?(x#y)1
 	P2
-		*** /'x = '>C *printf(x/) /'\n'>C
-		?(c#Q1)3 Or
+**
+
+
+*** Метод Флойда проверки таблицы переходов автомата
+*** L1	- таблица состояний
+*** c	- длина периода
+*** b	- признак случайного перебора {0, 1}
+*** s	- количество циклов
+everyFloydsMethod(L1, b, s/L2)
+	Oi b&1=t
+	?(i>=s)3
+	P1
+		i=j ?(t<1)2 X;Q1=j
+	P2
+		*floydsMethod(L1, j/c) c=L2j Di ?(i<s)1
 	P3
 **
+
+
+*** Метод Флойда проверки таблицы переходов автомата с выводом таблицы
+*** L1	- таблица состояний
+*** c	- длина периода
+*** b	- признак случайного перебора {0, 1}
+*** s	- количество циклов
+floydsMethodWPrint(L1, b, s/)
+	Oi
+	?(i>=s)3
+	/'*************************************************\n'>C
+	/'| состояние	| следующее	| период	|\n'>C
+	/'|-----------------------------------------------|\n'>C
+	P1
+		i=j ?(b<1)2
+		*** X;Q1=j
+		X&3fffffh;Q1=j *** надо убрать
+	P2
+		*floydsMethod(L1, j/c)
+		/'|	'>C *printf(j/) /'	|	'>C *printf(L1j/)
+		/'	|	'>C *printf(c/) /'	|\n'>C
+		Di ?(i<s)1
+	P3
+		/'*************************************************'>C
+**
+
 
 *** сумма по модулю 2 для F
 xorF(F1, F2/F3)
@@ -1347,27 +1577,6 @@ genAutomat(m/L1, L2, x, e)
 **
 
 
-*** Метод Флойда проверки таблицы переходов автомата
-*** L1	- таблица состояний
-*** c	- длина периода
-*** b	- признак случайного перебора {0, 1}
-*** s	- количество циклов
-everyFloydsMethod(L1, b, s/L2)
-	Oi
-	?(i>=s)4
-	P1
-		i=x=y=j Oc ?(b<1)2 X;Q1=x=y=j
-	P2
-		*BnextState(x, L1/x)
-		*BnextState(y, L1/y)
-		*BnextState(y, L1/y)
-		Dc ?(x#y)2
-	P3
-		c=L2j Di ?(i<s)1
-	P4
-**
-
-
 printDiagram(L1, L2/)
 	Oi
 	/'*************************************************\n'>C
@@ -1380,32 +1589,11 @@ printDiagram(L1, L2/)
 **
 
 
-*** Метод Флойда проверки таблицы переходов автомата с выводом таблицы
-*** L1	- таблица состояний
-*** c	- длина периода
-*** b	- признак случайного перебора {0, 1}
-*** s	- количество циклов
-floydsMethodWPrint(L1, b, s/)
-	Oi
-	?(i>=s)4
-	/'*************************************************\n'>C
-	/'| состояние	| следующее	| период	|\n'>C
-	/'|-----------------------------------------------|\n'>C
+avg(t, l, i/a)
+	?(t>l)1 l-t/i=a l-a=a ?=2 
 	P1
-		i=x=y=j Oc ?(b<1)2
-		*** X;Q1=x=y=j
-		X&3fffffh;Q1=x=y=j *** надо убрать
+		t-l/i+l=a
 	P2
-		*BnextState(x, L1/x)
-		*BnextState(y, L1/y)
-		*BnextState(y, L1/y)
-		Dc ?(x#y)2
-	P3
-		/'|	'>C *printf(j/) /'	|	'>C *printf(L1j/)
-		/'	|	'>C *printf(c/) /'	|\n'>C
-		Di ?(i<s)1
-	P4
-		/'*************************************************'>C
 **
 
 
@@ -1420,8 +1608,8 @@ searchMaxMinAvg(L1, m/k, v, l, a)
 	P3
 		?(L1i>n)4 Da
 	P4
-		*** l+L1i=l
-		Di ?=1 *** l/Q1=l
+		*** L1i-l/i+l=l *** потребуются отрицательные числа
+		Di ?=1
 	P5 /'searchMaxMinAvg: ERROR: Q1 equals zero\n'>C
 	P6
 **
